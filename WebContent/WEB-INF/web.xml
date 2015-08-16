@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>clostar_dwp</display-name>
+  <module-name>clostar</module-name>
+  <welcome-file-list>
+  	<welcome-file>home.jsp</welcome-file>
+  </welcome-file-list>
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+ 
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/Error.jsp</location>
+    </error-page>
+
+<!--     Struts Tag Library Descriptors
+    <taglib>
+        <taglib-uri>/WEB-INF/struts-bean.tld</taglib-uri>
+        <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+    </taglib>
+
+    <taglib>
+        <taglib-uri>/WEB-INF/struts-html.tld</taglib-uri>
+        <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+    </taglib>
+
+    <taglib>
+        <taglib-uri>/WEB-INF/struts-logic.tld</taglib-uri>
+        <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+    </taglib>
+
+    Custom tag library
+    <taglib>
+        <taglib-uri>/WEB-INF/core.tld</taglib-uri>
+        <taglib-location>/WEB-INF/core.tld</taglib-location>
+    </taglib> -->
+
+</web-app>

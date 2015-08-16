@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- constant to define dictionary resource bundle -->
+    <constant name="struts.custom.i18n.resources" value="dictionary"></constant>
+    
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+ 
+    <package name="home" extends="struts-default" namespace="/">
+      <action name="sign-up" 
+            class="com.clostar.struts.actions.SignUpAction" 
+            method="perform">
+            <result name="failure">/sign_up.jsp</result>
+            <result name="success">/signed_up.jsp</result>
+      </action>
+   </package>
+</struts>

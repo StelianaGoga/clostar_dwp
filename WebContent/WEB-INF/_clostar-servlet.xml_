@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   	xmlns:context="http://www.springframework.org/schema/context"
+   	xmlns:mvc="http://www.springframework.org/schema/mvc"
+   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans 
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/mvc 
+   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        
+    <!-- DispatcherServlet Context: defines this servlet's request-processing
+        infrastructure -->
+ 
+    <!-- Enables the Spring MVC @Controller programming model -->
+    
+    <mvc:annotation-driven />
+<!--
+    <context:component-scan
+        base-package="vr.spring.controller" annotation-config="true" />
+ -->
+	<bean id="HandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<!-- Handles HTTP GET requests for /images/** by efficiently serving up static resources in the ${webappRoot}/images directory -->
+	<mvc:resources mapping="/images/*" location="/images/" /> 
+
+   	<!-- <bean name="/clostar_dwp/home" class="com.clostar.spring.controllers.HomeController"/> -->
+   	<bean name="/clostar_dwp/" class="com.clostar.spring.controllers.HomeController"/>
+   	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	   <property name="prefix" value="/" />
+	   <property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>

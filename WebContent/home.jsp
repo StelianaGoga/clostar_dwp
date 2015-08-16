@@ -1,25 +1,4 @@
-<%@ page import="com.clostar.utils.DefaultConfigs" %>
-<%@ page import="com.clostar.utils.Config" %>
-<%@ include file="JspHeader.jspf"%>
-<html>
-<head>
-	<%@ include file="JspScriptsIncludes.jspf"%>
-	<title><s:i18n name="dictionary"><s:text name="clostar.title.home_page"/></s:i18n> - <%=DefaultConfigs.getVersion()%></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/stylesheet.css" /></head>
-<script>
-	function show_pic_details(id) {
-		var elem = document.getElementById("best_" + id);
-		elem.style.display='block';
-	}
-	function hid_pic_details(id){
-		var elem = document.getElementById("best_" + id);
-		elem.style.display='none';
-	}
-</script>
-
-<body>
-
-<%@ include file="header_home.jspf"%>
+<%@ include file="allIncludes.jspf" %>
 <div class="container-fluid">
   <br>
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -157,5 +136,3 @@
 </div>
 
 <%@ include file="footer_home.jspf"%>
-</body>
-</html>

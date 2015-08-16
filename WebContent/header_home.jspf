@@ -2,21 +2,21 @@
 	<div class="page-header">
 	  <div class="row">
 		<div class="col-md-4">
-			<a href="#">
+			<a href="home.jsp">
 				<img src="images/logo.jpg" class="img-rounded" alt="Clostar_logo" style="margin-left:50px; width:210px; height:82px">
 			</a>
 		</div>
 		<div class="col-md-4 col-md-offset-4" align="right">
-			<a href="#" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="my_account.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-user"></span> <br/>
 				<s:i18n name="dictionary"><s:text name="clostar.header.home_page.account"/></s:i18n>
 			</a>
-			<a href="#" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="my_favorites.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-star-empty"></span><br/>
 				<s:i18n name="dictionary"><s:text name="clostar.header.home_page.favorites"/></s:i18n> 
 				<span class="badge">0</span> 
 			</a>
-			<a href="#" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="my_cart.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-shopping-cart"></span>
 				<br/><s:i18n name="dictionary"><s:text name="clostar.header.home_page.cart"/></s:i18n>
 				 <span class="badge">0</span> 
@@ -108,7 +108,9 @@
 		</li> -->
 		<input type="text" class="form-control" id="search" placeholder='<s:i18n name="dictionary"><s:text name="clostar.menu.search"/></s:i18n>' style="width:200px;"></li>
 		<li><a href="#" class="btn btn-sm"><span class="glyphicon glyphicon-search"></span></a></li>
-        <li><a href="#signUpModal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        </li>
+        <%-- <li><a href="#signUpModal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
 			<div id="signUpModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="margin-top:200px;">
 					<div class="modal-content">
@@ -125,7 +127,7 @@
 				    </div>
 		  		</div>
 			</div>
-        </li>
+        </li> --%>
         <li><a href="#signInModal" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> Login</a>
         	<div id="signInModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="margin-top:200px;">

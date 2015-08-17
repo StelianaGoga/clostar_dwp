@@ -1,15 +1,18 @@
 package com.clostar.struts.actions;
 
-import java.util.Locale;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import com.clostar.db.model.Shopaholic;
 import com.clostar.session.HibernateUtil;
-import com.clostar.utils.ResourceManager;
+import com.clostar.utils.Constants;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class SignUpAction extends ActionSupport{
+public class SignAction extends ActionSupport{
 
 	/**
 	 * 
@@ -20,7 +23,7 @@ public class SignUpAction extends ActionSupport{
 	private String email;
 	private String password;
 	
-	public String perform() throws Exception {
+	public String signUp() throws Exception {
 		Shopaholic shopaholic = new Shopaholic();
 		shopaholic.setFirstName(this.getFirstname());
 		shopaholic.setLastName(this.getLastname());
@@ -39,6 +42,40 @@ public class SignUpAction extends ActionSupport{
 	    return "success";
 	}
 
+	@SuppressWarnings("unchecked")
+	public String signIn() throws Exception {
+		/*TODO - generalize */
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(Shopaholic.class);
+        crit.add(Restrictions.eq("email", this.getEmail()));
+        List<Shopaholic> list = crit.list();
+        if (list == null || list.isEmpty() || list.size() > 1) {
+        	System.out.println("list response null");
+        	session.close();
+        	return ERROR;
+        }
+        if (list.get(0).getUserPassword().equals(this.getPassword())) {
+        	System.out.println("Shopaholic found");
+        	initSession(list.get(0));
+        	session.close();
+        	return SUCCESS;
+        }
+        System.out.println("wrong password");
+    	session.close();
+	    return ERROR;
+	}
+	
+    private void initSession(Shopaholic user) {
+    	ActionContext.getContext().getSession().put(Constants.USER_ID, user.getId());
+    }
+	
+	@SuppressWarnings("unchecked")
+	public String signOut() throws Exception {
+    	ActionContext.getContext().getSession().remove(Constants.USER_ID);
+    	return SUCCESS;
+	}
+    
 	public String getFirstname() {
 		return firstname;
 	}

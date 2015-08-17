@@ -108,8 +108,14 @@
 		</li> -->
 		<input type="text" class="form-control" id="search" placeholder='<s:i18n name="dictionary"><s:text name="clostar.menu.search"/></s:i18n>' style="width:200px;"></li>
 		<li><a href="#" class="btn btn-sm"><span class="glyphicon glyphicon-search"></span></a></li>
-        <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-        </li>
+		<s:if test="#session.userId == null">
+			<li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_up"/></s:i18n></a></li>
+		</s:if>
+		<s:else>
+			<li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.my_store"/></s:i18n></a></li>
+		</s:else>
+        <!-- <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_up"/></s:i18n></a>
+        </li> -->
         <%-- <li><a href="#signUpModal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
 			<div id="signUpModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="margin-top:200px;">
@@ -128,24 +134,15 @@
 		  		</div>
 			</div>
         </li> --%>
-        <li><a href="#signInModal" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-        	<div id="signInModal" class="modal fade" role="dialog">
-				<div class="modal-dialog" style="margin-top:200px;">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Login</h4>
-						</div>
-						<div class="modal-body">
-							<%@ include file="sign_in.jspf"%>
-						</div>
-						<!-- <div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div> -->
-				    </div>
-		  		</div>
-			</div>
-        </li>
+        <!-- <li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_in"/></s:i18n></a>
+        </li> -->
+        <s:if test="#session.userId == null">
+			<li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_in"/></s:i18n></a></li>
+		</s:if>
+		<s:else>
+			<li><a href="sign-out"><span class="glyphicon glyphicon-log-out"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_out"/></s:i18n></a></li>
+		</s:else>
+        
       </ul>   
     </div>
   </div>

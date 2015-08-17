@@ -9,12 +9,24 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="false" />
  
-    <package name="home" namespace="/">
+    <package name="home" extends="struts-default" namespace="/">
       <action name="sign-up" 
-            class="com.clostar.struts.actions.SignUpAction" 
-            method="perform">
-            <result name="failure">/sign_up.jsp</result>
+            class="com.clostar.struts.actions.SignAction" 
+            method="signUp">
+            <result name="error">/sign_up.jsp</result>
             <result name="success">/signed_up.jsp</result>
+      </action>
+      <action name="sign-in" 
+            class="com.clostar.struts.actions.SignAction" 
+            method="signIn">
+            <result name="error">/sign_in.jsp</result>
+            <result name="success">/home.jsp</result>
+      </action>
+      <action name="sign-out" 
+            class="com.clostar.struts.actions.SignAction" 
+            method="signOut">
+            <result name="error"></result>
+            <result name="success"></result>
       </action>
    </package>
 </struts>

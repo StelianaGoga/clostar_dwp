@@ -4,10 +4,10 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
     <!-- constant to define dictionary resource bundle -->
-    <constant name="struts.custom.i18n.resources" value="dictionary"></constant>
+    <constant name="struts.custom.i18n.resources" value="global"></constant>
     
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="false" />
+    <constant name="struts.devMode" value="true" />
  
     <package name="home" extends="struts-default" namespace="/">
       <action name="sign-up" 
@@ -25,8 +25,14 @@
       <action name="sign-out" 
             class="com.clostar.struts.actions.SignAction" 
             method="signOut">
-            <result name="error"></result>
-            <result name="success"></result>
+            <result name="error">/home.jsp</result>
+            <result name="success">/home.jsp</result>
+      </action>
+      <action name="add_prodohol" 
+            class="com.clostar.struts.actions.ProdoholAction" 
+            method="addProdohol">
+            <result name="error">/add_prodohol.jsp</result>
+            <result name="success">/my_account.jsp</result>
       </action>
    </package>
 </struts>

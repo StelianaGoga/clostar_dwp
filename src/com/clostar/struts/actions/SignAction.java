@@ -28,7 +28,7 @@ public class SignAction extends ActionSupport{
 		shopaholic.setFirstName(this.getFirstname());
 		shopaholic.setLastName(this.getLastname());
 		shopaholic.setEmail(this.getEmail());
-		shopaholic.setUserPassword(this.getPassword());
+		shopaholic.setPassword(this.getPassword());
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -55,7 +55,7 @@ public class SignAction extends ActionSupport{
         	session.close();
         	return ERROR;
         }
-        if (list.get(0).getUserPassword().equals(this.getPassword())) {
+        if (list.get(0).getPassword().equals(this.getPassword())) {
         	System.out.println("Shopaholic found");
         	initSession(list.get(0));
         	session.close();

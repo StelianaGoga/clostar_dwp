@@ -8,11 +8,8 @@ import org.hibernate.criterion.Restrictions;
 
 import com.clostar.db.model.Shopaholic;
 import com.clostar.session.HibernateUtil;
-import com.clostar.utils.Constants;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
-public class SignAction extends ActionSupport{
+public class SignAction extends SuperAction{
 
 	/**
 	 * 
@@ -24,6 +21,8 @@ public class SignAction extends ActionSupport{
 	private String password;
 	
 	public String signUp() throws Exception {
+		//if(!isSessionSignedIn()) return LOGIN;
+		
 		Shopaholic shopaholic = new Shopaholic();
 		shopaholic.setFirstName(this.getFirstname());
 		shopaholic.setLastName(this.getLastname());
@@ -39,11 +38,13 @@ public class SignAction extends ActionSupport{
 		//ShopaholicDao.attachDirty(Shopaholic);
 //		SendEmail se = new SendEmail("steliana.goga@gmail.com");
 //		se.sendTextMail("Subject - clostar", "You have been signed up!");
-	    return "success";
+	    return SUCCESS;
 	}
 
 	@SuppressWarnings("unchecked")
 	public String signIn() throws Exception {
+		//if(!isSessionSignedIn()) return LOGIN;
+		
 		/*TODO - generalize */
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -66,13 +67,9 @@ public class SignAction extends ActionSupport{
 	    return ERROR;
 	}
 	
-    private void initSession(Shopaholic user) {
-    	ActionContext.getContext().getSession().put(Constants.USER_ID, user.getId());
-    }
-	
-	@SuppressWarnings("unchecked")
 	public String signOut() throws Exception {
-    	ActionContext.getContext().getSession().remove(Constants.USER_ID);
+		//if(!isSessionSignedIn()) return LOGIN;
+    	removeSession();
     	return SUCCESS;
 	}
     

@@ -7,7 +7,7 @@
 			</a>
 		</div>
 		<div class="col-md-4 col-md-offset-4" align="right">
-			<a href="my_account.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="show_account" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-user"></span> <br/>
 				<s:i18n name="dictionary"><s:text name="clostar.header.home_page.account"/></s:i18n>
 			</a>

@@ -28,11 +28,23 @@
             <result name="error">/home.jsp</result>
             <result name="success">/home.jsp</result>
       </action>
-      <action name="add_prodohol" 
+      <action name="add_product" 
             class="com.clostar.struts.actions.ProdoholAction" 
             method="addProdohol">
             <result name="error">/add_prodohol.jsp</result>
             <result name="success">/my_account.jsp</result>
+      </action>
+      <action name="show_account" 
+            class="com.clostar.struts.actions.UserProfileAction" 
+            method="showAccount">
+            <result name="login">/sign_in.jsp</result>
+            <result name="success">/my_account.jsp</result>
+      </action>
+      <action name="new_product_details" 
+            class="com.clostar.struts.actions.UserProfileAction" 
+            method="showAccount">
+            <result name="login">/sign_in.jsp</result>
+            <result name="success">/add_prodohol.jsp</result>
       </action>
    </package>
 </struts>

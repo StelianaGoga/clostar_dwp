@@ -4,5 +4,5 @@
 		<%@ include file="sign_in.jspf"%>
 	</div>
 </div>
-
+<div style="height:200px;"></div>
 <%@ include file="footer_home.jspf"%>

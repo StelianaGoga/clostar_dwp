@@ -1,17 +1,30 @@
-<form role="form" action="sign-up">
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<s:if test="hasActionErrors()">
+   <div class="errors">
+      <s:actionerror/>
+      <br/>
+   </div>
+</s:if>
+
+<form role="form" method="post" action="sign-up">
 	<div class="form-group">
-		<input type="text" name="firstname" class="form-control" id="firstname" placeholder="First Name">
+		<s:fielderror class="errors" fieldName="firstName"/>
+		<input type="text" name="firstName" value="${firstName}" class="form-control" id="firstname" placeholder="<s:text name='clostar.session.forms.firstname'/>">
 	</div>
 	<div class="form-group">
-		<input type="text" name="lastname" class="form-control" id="lastname" placeholder="Last Name">
+		<s:fielderror class="errors" fieldName="lastName"/>
+		<input type="text" name="lastName" value="${lastName}" class="form-control" id="lastname" placeholder="<s:text name='clostar.session.forms.lastname'/>">
 	</div>
 	<div class="form-group">
-		<input type="email" name="email" class="form-control" id="email" placeholder="Email">
+		<s:fielderror class="errors" fieldName="email"/>
+		<input type="email" name="email" value="${email}" class="form-control" id="email" placeholder="<s:text name='clostar.session.forms.email'/>">
 	</div>
 	<div class="form-group">
-		<input type="password" name="password" class="form-control" id="pwd" placeholder="Password">
+		<s:fielderror class="errors" fieldName="password"/>
+		<input type="password" name="password" class="form-control" id="pwd" placeholder="<s:text name='clostar.session.forms.password'/>">
 	</div>
 	<div class="form-group" align="center">
-		<button type="submit" class="btn btn-default">Sign Up</button>
+		<button type="submit" class="btn btn-default"><s:text name='clostar.menu.sign_up'/></button>
 	</div>
 </form>

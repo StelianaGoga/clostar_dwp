@@ -44,3 +44,25 @@
     -moz-border-radius:6px 0 6px 6px;
     border-radius:6px 0 6px 6px;
 }
+
+.errors {
+	color:red;
+}
+/* .errors li{ 
+	list-style: none; 
+} */
+
+.message {
+	color:green;
+	font: bold;
+	font-size: medium;
+}
+
+.message li{ 
+	list-style: none; 
+}
+
+.signedup {
+	padding-top:50px;
+	height:400px;
+}

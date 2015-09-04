@@ -1,107 +1,82 @@
 package com.clostar.struts.actions;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-
+import com.clostar.db.dao.ShopaholicDAO;
 import com.clostar.db.model.Shopaholic;
-import com.clostar.session.HibernateUtil;
+import com.opensymphony.xwork2.ModelDriven;
 
-public class SignAction extends SuperAction{
+@SuppressWarnings("serial")
+public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String firstname;
-	private String lastname;
-	private String email;
-	private String password;
+	private Shopaholic shopaholic = new Shopaholic();
 	
 	public String signUp() throws Exception {
-		//if(!isSessionSignedIn()) return LOGIN;
 		
-		Shopaholic shopaholic = new Shopaholic();
-		shopaholic.setFirstName(this.getFirstname());
-		shopaholic.setLastName(this.getLastname());
-		shopaholic.setEmail(this.getEmail());
-		shopaholic.setPassword(this.getPassword());
+		if (shopaholic.getEmail() == null || shopaholic.getEmail().equals("")) {
+			addFieldError("email", getText("clostar.error.notnullable"));
+		}
+		if (shopaholic.getFirstName() == null || shopaholic.getFirstName().equals("")) {
+			addFieldError("firstName", getText("clostar.error.notnullable"));
+		}
+		if (shopaholic.getLastName() == null || shopaholic.getLastName().equals("")) {
+			addFieldError("lastName", getText("clostar.error.notnullable"));
+		}
+		if (shopaholic.getPassword() == null || shopaholic.getPassword().equals("")) {
+			addFieldError("password", getText("clostar.error.notnullable"));
+		}
+		
+		if (hasErrors()) {
+			return INPUT;
+		}
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.saveOrUpdate(shopaholic);
-        session.getTransaction().commit();
+		boolean isExistent = new ShopaholicDAO().isUserExistent(shopaholic.getEmail());
+		if (isExistent) {
+			addActionError(getText("clostar.error.signup.userexistent"));
+			return INPUT;
+		}
 		
-		//HibernateUtil<Shopaholic> ShopaholicDao = new HibernateUtil<Shopaholic>();
-		//ShopaholicDao.attachDirty(Shopaholic);
+		new ShopaholicDAO().saveOrUpdate(shopaholic, false);
+		
 //		SendEmail se = new SendEmail("steliana.goga@gmail.com");
 //		se.sendTextMail("Subject - clostar", "You have been signed up!");
 	    return SUCCESS;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String signIn() throws Exception {
-		//if(!isSessionSignedIn()) return LOGIN;
+
+		if (shopaholic.getEmail() == null || shopaholic.getEmail().equals("")) {
+			addFieldError("email", getText("clostar.error.notnullable"));
+		}
+		if (shopaholic.getPassword() == null || shopaholic.getPassword().equals("")) {
+			addFieldError("password", getText("clostar.error.notnullable"));
+		}
 		
-		/*TODO - generalize */
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Criteria crit = session.createCriteria(Shopaholic.class);
-        crit.add(Restrictions.eq("email", this.getEmail()));
-        List<Shopaholic> list = crit.list();
-        if (list == null || list.isEmpty() || list.size() > 1) {
-        	System.out.println("list response null");
-        	session.close();
-        	return ERROR;
-        }
-        if (list.get(0).getPassword().equals(this.getPassword())) {
-        	System.out.println("Shopaholic found");
-        	initSession(list.get(0));
-        	session.close();
-        	return SUCCESS;
-        }
-        System.out.println("wrong password");
-    	session.close();
-	    return ERROR;
+		if (hasErrors()) {
+			return INPUT;
+		}
+
+		boolean isExistent = new ShopaholicDAO().isUserExistent(shopaholic.getEmail(), shopaholic.getPassword());
+		if (!isExistent) {
+			addActionError(getText("clostar.error.signin.userinexistent"));
+			return INPUT;
+		}
+		shopaholic = new ShopaholicDAO().getUser(shopaholic.getEmail());
+		if (shopaholic == null) {
+			return ERROR;
+		}
+		new ShopaholicDAO().saveOrUpdate(shopaholic, true);
+		getSessionManager().initSession(shopaholic);
+		checkTargetAction();
+	    return SUCCESS;
 	}
-	
+
 	public String signOut() throws Exception {
 		//if(!isSessionSignedIn()) return LOGIN;
-    	removeSession();
+		getSessionManager().removeSession();
     	return SUCCESS;
 	}
     
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	@Override
+	public Shopaholic getModel() {
+		return shopaholic;
 	}
 }

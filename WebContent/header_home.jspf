@@ -1,5 +1,19 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <div class="container-fluid">
 	<div class="page-header">
+		<div class="row" style="margin-top: -40px;padding-bottom: 10px;">
+			<div class="col-md-4 col-md-offset-8" align="right">
+				<s:url id="localeEN" namespace="/" action="locale" >
+				   <s:param name="request_locale">en</s:param>
+				</s:url>
+				<s:url id="localeRO" namespace="/" action="locale" >
+				   <s:param name="request_locale">ro</s:param>
+				</s:url>
+				
+				<s:a href="%{localeEN}">English</s:a>
+				<s:a href="%{localeRO}">Romana</s:a>
+			</div>
+		</div>
 	  <div class="row">
 		<div class="col-md-4">
 			<a href="home.jsp">
@@ -9,16 +23,16 @@
 		<div class="col-md-4 col-md-offset-4" align="right">
 			<a href="show_account" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-user"></span> <br/>
-				<s:i18n name="dictionary"><s:text name="clostar.header.home_page.account"/></s:i18n>
+				<s:i18n name="global"><s:text name="clostar.header.home_page.account"/></s:i18n>
 			</a>
 			<a href="my_favorites.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-star-empty"></span><br/>
-				<s:i18n name="dictionary"><s:text name="clostar.header.home_page.favorites"/></s:i18n> 
+				<s:i18n name="global"><s:text name="clostar.header.home_page.favorites"/></s:i18n> 
 				<span class="badge">0</span> 
 			</a>
 			<a href="my_cart.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-shopping-cart"></span>
-				<br/><s:i18n name="dictionary"><s:text name="clostar.header.home_page.cart"/></s:i18n>
+				<br/><s:i18n name="global"><s:text name="clostar.header.home_page.cart"/></s:i18n>
 				 <span class="badge">0</span> 
 			</a>
 		</div>
@@ -37,63 +51,63 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.bestsales"/></s:i18n></a></li>
+        <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.bestsales"/></s:i18n></a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.person.women"/></s:i18n> 
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.women"/></s:i18n> 
           		<span class="caret"></span></a>
           <ul class="dropdown-menu"  role="menu" aria-labelledby="dLabel">
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
             <li class="dropdown dropdown-submenu">
             	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            		<s:i18n name="dictionary"><s:text name="clostar.menu.product.shoes"/></s:i18n></a>
+            		<s:i18n name="global"><s:text name="clostar.menu.product.holeshoes"/></s:i18n></a>
             	<ul class="dropdown-menu" role="menu">
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.flip-flops"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.flip-flops"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
 				</ul>
 			</li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.person.men"/></s:i18n> <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.men"/></s:i18n> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
             <li class="dropdown dropdown-submenu">
             	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            		<s:i18n name="dictionary"><s:text name="clostar.menu.product.shoes"/></s:i18n></a>
+            		<s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a>
             	<ul class="dropdown-menu" role="menu">
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.flip-flops"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.flip-flops"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
+		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
 				</ul>
 			</li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.person.children"/></s:i18n> <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.children"/></s:i18n> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
+            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
           </ul>
         </li>
-        <li><a href="#"><s:i18n name="dictionary"><s:text name="clostar.menu.sales"/></s:i18n></a></li>
+        <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.sales"/></s:i18n></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 		<li><!-- 
@@ -106,15 +120,15 @@
 		      </span>
 		    </div>
 		</li> -->
-		<input type="text" class="form-control" id="search" placeholder='<s:i18n name="dictionary"><s:text name="clostar.menu.search"/></s:i18n>' style="width:200px;"></li>
+		<input type="text" class="form-control" id="search" placeholder='<s:i18n name="global"><s:text name="clostar.menu.search"/></s:i18n>' style="width:200px;"></li>
 		<li><a href="#" class="btn btn-sm"><span class="glyphicon glyphicon-search"></span></a></li>
 		<s:if test="#session.userId == null">
-			<li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_up"/></s:i18n></a></li>
+			<li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_up"/></s:i18n></a></li>
 		</s:if>
 		<s:else>
-			<li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.my_store"/></s:i18n></a></li>
+			<li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span> <s:i18n name="global"><s:text name="clostar.menu.my_store"/></s:i18n></a></li>
 		</s:else>
-        <!-- <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_up"/></s:i18n></a>
+        <!-- <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_up"/></s:i18n></a>
         </li> -->
         <%-- <li><a href="#signUpModal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
 			<div id="signUpModal" class="modal fade" role="dialog">
@@ -134,13 +148,13 @@
 		  		</div>
 			</div>
         </li> --%>
-        <!-- <li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_in"/></s:i18n></a>
+        <!-- <li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_in"/></s:i18n></a>
         </li> -->
         <s:if test="#session.userId == null">
-			<li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_in"/></s:i18n></a></li>
+			<li><a href="sign_in.jsp"><span class="glyphicon glyphicon-log-in"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_in"/></s:i18n></a></li>
 		</s:if>
 		<s:else>
-			<li><a href="sign-out"><span class="glyphicon glyphicon-log-out"></span> <s:i18n name="dictionary"><s:text name="clostar.menu.sign_out"/></s:i18n></a></li>
+			<li><a href="sign-out"><span class="glyphicon glyphicon-log-out"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_out"/></s:i18n></a></li>
 		</s:else>
         
       </ul>   

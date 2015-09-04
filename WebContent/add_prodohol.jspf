@@ -1,96 +1,32 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<script type="text/javascript">
-	function make_option_elem(value, text) {
-		var option = document.createElement("option");
-		option.text = text;
-		option.value = value;
-		return option;
-	}
-	
-	function make_shoes_optgroup(){
 
-	    var optgrp = document.createElement("optgroup");
-	    optgrp.setAttribute("label", "Shoes");
-	    optgrp.setAttribute("id", "shoes_list_id");
-	    var option = make_option_elem(6, "Shoe1");
-	    optgrp.appendChild(option);
-	    
-	    option = make_option_elem(7, "Shoe2");
-	    optgrp.appendChild(option);
-	    
-	    option = make_option_elem(8, "Shoe3");
-	    optgrp.appendChild(option);
-	    
-	    option = make_option_elem(9, "Shoe4");
-	    optgrp.appendChild(option);
-	    
-		return optgrp;
-	}
+<s:if test="hasActionErrors()">
+   <div class="errors">
+      <s:actionerror/>
+      <br/>
+   </div>
+</s:if>
+<s:if test="!hasErrors()">
+	<s:if test="hasActionMessages()">
+	   <div class="message">
+	      <s:actionmessage/>
+	      <br/>
+	   </div>
+	</s:if>
+</s:if>
 
-	function onSelectGender(){
-		var gender = document.getElementById("gender_dropbox").value;
-		var type = document.getElementById("item_type_dropbox");
-		type.options.length = 0;
-		if (gender == 0 || gender == 2) {
-			type.add(make_option_elem(0, "Dresses"));
-			type.add(make_option_elem(1, "Jackets"));
-			type.add(make_option_elem(2, "Jeans"));
-			type.add(make_option_elem(3, "Top"));
-			type.add(make_option_elem(4, "Skirts"));
-			
-			if (document.getElementById("shoes_list_id") != null)
-				type.removeChild(document.getElementById("shoes_list_id"));
-			type.appendChild(make_shoes_optgroup());
-		}
-		else if (gender == 1 || gender == 3) {
-			type.add(make_option_elem(1, "Jackets"));
-			type.add(make_option_elem(2, "Jeans"));
-			type.add(make_option_elem(5, "T-shirts"));
-			
-			if (document.getElementById("shoes_list_id") != null)
-				type.removeChild(document.getElementById("shoes_list_id"));
-			type.appendChild(make_shoes_optgroup());
-		}
-		if (gender == 4 || gender == 5 || gender == 6) {
-			type.add(make_option_elem(0, "Dresses"));
-			type.add(make_option_elem(1, "Jackets"));
-			type.add(make_option_elem(2, "Jeans"));
-			type.add(make_option_elem(3, "Top"));
-			type.add(make_option_elem(4, "Skirts"));
-			type.add(make_option_elem(6, "T-shirts"));
-
-			if (document.getElementById("shoes_list_id") != null)
-				type.removeChild(document.getElementById("shoes_list_id"));
-			type.appendChild(make_shoes_optgroup());
-		}
-	}
-	
-	function onSelectItemType(){
-		var type = document.getElementById("item_type_dropbox").value;
-		shoes = document.getElementById("shoes_dropbox");
-		shoes.options.length = 0;
-		if (type == 5) {
-			shoes.style.display = "block";
-			shoes.add(make_option_elem(0, "Shoe1"));
-			shoes.add(make_option_elem(1, "Shoe2"));
-			shoes.add(make_option_elem(2, "Shoe3"));
-			shoes.add(make_option_elem(3, "Shoe4"));
-		}
-		else {
-			shoes.style.display = "none";
-		}
-	}
-</script>
-<form class="form-horizontal" action="add_product">
+<form class="form-horizontal" action="add_product" method="POST" enctype="multipart/form-data">
 	<div class="form-group">
-		<label for="name" class="col-sm-2 control-label">Name</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="name" placeholder="Name" name="name">
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="name"/>
+		<label id="nameLabel" for="name" class="col-sm-3 control-label">Name</label>
+		<div class="col-sm-6" align="left">
+			<input type="text" class="form-control" id="name" placeholder="Name" name="name" value="${name}">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="gender_dropbox" class="col-sm-2 control-label">Gender</label>
-		<div class="col-sm-10">
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="gender"/>
+		<label for="gender_dropbox" class="col-sm-3 control-label">Gender</label>
+		<div class="col-sm-6" align="left" style="padding-top: 5px;">
 			<select name="genderId"  id="gender_dropbox" onclick="onSelectGender()">
 				<option value="-1">-</option>
 				<option value="0">Female</option>
@@ -104,18 +40,20 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="item_type_dropbox" class="col-sm-2 control-label">Item type</label>
-		<div class="col-sm-10">
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="type"/>
+		<label for="item_type_dropbox" class="col-sm-3 control-label">Item type</label>
+		<div class="col-sm-6" align="left" style="padding-top: 5px;">
 			<select name="typeId" id="item_type_dropbox"></select>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="price" class="col-sm-2 control-label">Price</label>
-		<div class="col-sm-4">
-			<input type="text" class="form-control" id="price" placeholder="Price" name="price">
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="price"/>
+		<label for="price" class="col-sm-3 control-label">Price</label>
+		<div class="col-sm-2"  align="left">
+			<input type="text" class="form-control" id="price" placeholder="Price" name="price" value="${price}">
 		</div>
-		<label for="currency_dropbox" class="col-sm-2 col-sm-offset-1 control-label">Currency</label>
-		<div class="col-sm-3">
+		<label for="currency_dropbox" class="col-sm-2 control-label">Currency</label>
+		<div class="col-sm-2" align="left" style="padding-top: 5px;">
 			<select id="currency_dropbox" name="currency">
 				<option value="0">Euro</option>
 				<option value="1">Pounds</option>
@@ -124,43 +62,71 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="quantity" class="col-sm-2 control-label">Quantity</label>
-		<div class="col-sm-4">
-			<input type="number" name="quantity" id="quantity">
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="quantity"/>
+		<label for="quantity" class="col-sm-3 control-label">Quantity</label>
+		<div class="col-sm-4" align="left">
+			<input type="number" name="quantity" id="quantity" value="${quantity}">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="description" class="col-sm-2 control-label">Description</label>
-		<div class="col-sm-10">
-			<textarea class="form-control" rows="3" id="description" name="description" placeholder="Description"></textarea>
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="measuresNo"/>
+		<label for="measuresNo" class="col-sm-3 control-label">Measures</label>
+		<div class="col-sm-4" align="left">
+			<input type="number" name="measuresNo" min="0" id="measuresNo" value="${measuresNo}" onchange="onChangeMeasuresNo()">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="materials" class="col-sm-2 control-label">Materials</label>
-		<div class="col-sm-10">
-			<textarea class="form-control" rows="3" id="materials" name="materials" placeholder="Materials"></textarea>
+		<s:fielderror class="col-sm-offset-3 errors" fieldName="measures"/>
+		<div class="col-sm-offset-3 col-sm-6" align="left" id="measuresDiv">
+			<s:if test="measuresNo != null && measuresNo != 0">
+				<s:iterator value="measure" status="listStatus"><!-- var="counter" begin="1" end="measuresNo" > -->
+	   				<div class="row" id="measureDiv_<s:property value="%{#listStatus.index + 1}" />">
+						<label for="mQuantity" class="col-sm-2 control-label">Quantity</label>
+						<div class="col-sm-4" align="left">
+							<input type="number" name="mQuantity" min="0" value="<s:property value='%{mQuantity[#listStatus.index]}' />">
+						</div>
+						<label for="measure" class="col-sm-2 control-label">Measure</label>
+						<div class="col-sm-4" align="left">
+							<input type="text" class="form-control" placeholder="Measure" name="measure" value='<s:property value="top" />'>
+						</div>
+					</div>
+				</s:iterator>
+			</s:if>
+			<s:else>
+				<div class="row" id="measureDiv_1" style="display:none;">
+					<label for="mQuantity" class="col-sm-2 control-label">Quantity</label>
+					<div class="col-sm-4" align="left">
+						<input type="number" name="mQuantity" min="0">
+					</div>
+					<label for="measure" class="col-sm-2 control-label">Measure</label>
+					<div class="col-sm-4" align="left">
+						<input type="text" class="form-control" placeholder="Measure" name="measure">
+					</div>
+				</div>
+			</s:else>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="brand" class="col-sm-2 control-label">Brand</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="brand" placeholder="Brand" name="brand">
+		<label for="description" class="col-sm-3 control-label">Description</label>
+		<div class="col-sm-6" align="left">
+			<textarea class="form-control" rows="3" id="description" name="description" placeholder="Description">${description}</textarea>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="season_dropbox" class="col-sm-2 control-label">Season</label>
-		<div class="col-sm-10">
-			<select id="season_dropbox" name="seasonId">
-				<option value="0">Spring</option>
-				<option value="1">Summer</option>
-				<option value="2">Autumn</option>
-				<option value="3">Winter</option>
-			</select>
+		<label for="materials" class="col-sm-3 control-label">Materials</label>
+		<div class="col-sm-6" align="left">
+			<textarea class="form-control" rows="3" id="materials" name="materials" placeholder="Materials">${materials}</textarea>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="season_dropbox" class="col-sm-2 control-label">Season</label>
-		<div class="col-sm-10">
+		<label for="brand" class="col-sm-3 control-label">Brand</label>
+		<div class="col-sm-6" align="left">
+			<input type="text" class="form-control" id="brand" placeholder="Brand" name="brand" value="${brand}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="season_dropbox" class="col-sm-3 control-label">Season</label>
+		<div class="col-sm-6" align="left">
 			<label class="checkbox-inline">
 				<input type="checkbox" id="spring" value="spring"> Spring
 			</label>
@@ -176,7 +142,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
+		<div class="col-sm-offset-3 col-sm-6" align="left">
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" id="show_ind" name="showInd" value="1"> Show Indicator
@@ -185,65 +151,26 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="season_dropbox" class="col-sm-2 control-label">Select first picture</label>
-		<div class="col-sm-10">
-			<s:file id="profilePicture" size="40" />
+		<label for="profilePicture" class="col-sm-3 control-label">Select first picture</label>
+		<div class="col-sm-6" align="left">
+			<s:file name="profilePic" id="profilePicture" size="40" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="season_dropbox" class="col-sm-2 control-label">Select other pictures</label>
-		<div class="col-sm-10">
-			<s:file id="prodoholpic1" size="40" />
+		<label for="prodoholpic1" class="col-sm-3 control-label">Select other pictures</label>
+		<div class="col-sm-6" align="left">
+			<s:file name="fileUpload" id="prodoholpic1" size="40" />
+			<s:file name="fileUpload" id="prodoholpic2" size="40" />
+			<s:file name="fileUpload" id="prodoholpic3" size="40" />
 		</div>
 	</div>
+	<br/>
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<s:file id="prodoholpic2" size="40" />
-			<s:file id="prodoholpic3" size="40" />
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
+		<div class="col-sm-offset-3 col-sm-6" align="center">
 			<button type="submit" class="btn btn-default">Add</button>
 		</div>
 	</div>
 </form>
-
-<%-- <form role="form" action="add_prodohol" style="text-align: left">
-	<div class="form-group">
-		Name: <input type="text" name="name" id="name"><br/>
-		Gender: <select name="genderId"  id="gender_dropbox" onclick="onSelectGender()">
-				<option value="0">Female</option>
-				<option value="1">Male</option>
-				<option value="2">Girl</option>
-				<option value="3">Boy</option>
-				<option value="4">Adults</option>
-				<option value="5">Children</option>
-				<option value="6">All</option>
-		</select><br/>
-		Item type: <select name="typeId" id="item_type_dropbox"></select><br/>
-		Price: <input type="text" name="price" id="price">
-		Currency: 
-				<select id="currency_dropbox" name="currency">
-						<option value="0">Euro</option>
-						<option value="1">Pounds</option>
-						<option value="2">RON</option>
-				</select>
-		<br/>
-		Quantity: <input type="number" name="quantity" id="quantity"><br/>
-		Description: <input type="text" name="description"  id="description" placeholder="Description"><br/>
-		Brand: <input type="text" name="brand" id="brand" placeholder="Brand"><br/>
-		Materials: <input type="text" name="materials" id="materials" placeholder="Materials"><br/>
-		Season:<select id="season_dropbox" name="seasonId">
-				<option value="0">Spring</option>
-				<option value="1">Summer</option>
-				<option value="2">Autumn</option>
-				<option value="3">Winter</option>
-		</select><br/>
-		Show Indicator: <input type="checkbox" id="show_ind" title="show indicator" value="1"><br/>
-		Profile picture: <input type="file"><br/>
-	</div>
-	<div class="form-group" align="center">
-		<button type="submit" class="btn btn-default">Add</button>
-	</div>
-</form> --%>
+<script>
+	//onChangeMeasuresNo();
+</script>

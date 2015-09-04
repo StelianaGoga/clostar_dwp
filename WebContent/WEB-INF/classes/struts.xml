@@ -5,46 +5,79 @@
 <struts>
     <!-- constant to define dictionary resource bundle -->
     <constant name="struts.custom.i18n.resources" value="global"></constant>
+	<constant name="struts.devMode" value="true" />
+    <!-- <constant name="struts.action.extension" value=".htm"/> -->
+ 	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="false" /> -->
     
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
- 
     <package name="home" extends="struts-default" namespace="/">
-      <action name="sign-up" 
-            class="com.clostar.struts.actions.SignAction" 
-            method="signUp">
-            <result name="error">/sign_up.jsp</result>
-            <result name="success">/signed_up.jsp</result>
-      </action>
-      <action name="sign-in" 
-            class="com.clostar.struts.actions.SignAction" 
-            method="signIn">
-            <result name="error">/sign_in.jsp</result>
-            <result name="success">/home.jsp</result>
-      </action>
-      <action name="sign-out" 
-            class="com.clostar.struts.actions.SignAction" 
-            method="signOut">
-            <result name="error">/home.jsp</result>
-            <result name="success">/home.jsp</result>
-      </action>
-      <action name="add_product" 
-            class="com.clostar.struts.actions.ProdoholAction" 
-            method="addProdohol">
-            <result name="error">/add_prodohol.jsp</result>
-            <result name="success">/my_account.jsp</result>
-      </action>
-      <action name="show_account" 
-            class="com.clostar.struts.actions.UserProfileAction" 
-            method="showAccount">
-            <result name="login">/sign_in.jsp</result>
-            <result name="success">/my_account.jsp</result>
-      </action>
-      <action name="new_product_details" 
-            class="com.clostar.struts.actions.UserProfileAction" 
-            method="showAccount">
-            <result name="login">/sign_in.jsp</result>
-            <result name="success">/add_prodohol.jsp</result>
-      </action>
+    
+    	<interceptors>	
+			<interceptor name="SessionTimeout" class="com.clostar.interceptors.SignedInTimeout"></interceptor>
+		        	
+		    <interceptor-stack name="SessionInterceptor">
+		    	<interceptor-ref name="SessionTimeout"/>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+    
+		<action name="locale" class="com.clostar.struts.actions.LocaleAction">
+			<result name="SUCCESS">home.jsp</result>
+		</action>
+		
+		<action name="home" class="com.clostar.struts.actions.SuperAction" 
+		      method="home">
+		      <result name="success">home.jsp</result>
+		</action>
+	
+		<action name="sign-up" 
+		      class="com.clostar.struts.actions.SignAction" 
+		      method="signUp">
+		      <result name="error">/sign_up.jsp</result>
+		      <result name="input">/sign_up.jsp</result>
+		      <result name="success">/signed_up.jsp</result>
+		</action>
+		<action name="sign-in" 
+		      class="com.clostar.struts.actions.SignAction" 
+		      method="signIn">
+	        <interceptor-ref name="store">
+	            <param name="operationMode">RETRIEVE</param>
+	        </interceptor-ref>
+	        <interceptor-ref name="defaultStack" />
+		      <result name="error">/sign_in.jsp</result>
+		      <result name="input">/sign_in.jsp</result>
+		      <result name="success" type="redirectAction">${targetAction}</result>
+		</action>
+		<action name="sign-out" 
+		      class="com.clostar.struts.actions.SignAction" 
+		      method="signOut">
+		      <result name="error">/home.jsp</result>
+		      <result name="success">/home.jsp</result>
+		</action>
+		<action name="show_account" 
+		      class="com.clostar.struts.actions.UserProfileAction" 
+		      method="showAccount">
+	        <interceptor-ref name="store">
+	            <param name="operationMode">STORE</param>
+	        </interceptor-ref>
+		      <interceptor-ref name="SessionInterceptor"/>
+		      <result name="login">/sign_in.jsp</result>
+		      <result name="input">/sign_in.jsp</result>
+		      <result name="success">/my_account.jsp</result>
+		</action>
+		<action name="new_product_details" 
+		      class="com.clostar.struts.actions.UserProfileAction" 
+		      method="showAccount">
+			<interceptor-ref name="SessionInterceptor"/>
+			<result name="login">/sign_in.jsp</result>
+			<result name="success">/add_prodohol.jsp</result>
+		</action>
+		<action name="add_product" 
+		      class="com.clostar.struts.actions.ProdoholAction" 
+		      method="addProdohol">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+			<result name="input">/add_prodohol.jsp</result>
+		    <result name="success">/my_account.jsp</result>
+		</action>
    </package>
 </struts>

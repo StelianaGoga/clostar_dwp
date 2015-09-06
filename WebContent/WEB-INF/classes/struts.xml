@@ -69,14 +69,14 @@
 		      method="showAccount">
 			<interceptor-ref name="SessionInterceptor"/>
 			<result name="login">/sign_in.jsp</result>
-			<result name="success">/add_prodohol.jsp</result>
+			<result name="success">/add_product.jsp</result>
 		</action>
 		<action name="add_product" 
-		      class="com.clostar.struts.actions.ProdoholAction" 
-		      method="addProdohol">
+		      class="com.clostar.struts.actions.ProductAction" 
+		      method="addProduct">
 		    <interceptor-ref name="SessionInterceptor"/>
 		    <result name="login">/sign_in.jsp</result>
-			<result name="input">/add_prodohol.jsp</result>
+			<result name="input">/add_product.jsp</result>
 		    <result name="success">/my_account.jsp</result>
 		</action>
    </package>

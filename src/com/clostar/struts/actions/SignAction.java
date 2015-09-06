@@ -1,26 +1,26 @@
 package com.clostar.struts.actions;
 
-import com.clostar.db.dao.ShopaholicDAO;
-import com.clostar.db.model.Shopaholic;
+import com.clostar.db.dao.UserDAO;
+import com.clostar.db.model.User;
 import com.opensymphony.xwork2.ModelDriven;
 
 @SuppressWarnings("serial")
-public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
+public class SignAction extends SuperAction implements ModelDriven<User>{
 
-	private Shopaholic shopaholic = new Shopaholic();
+	private User user = new User();
 	
 	public String signUp() throws Exception {
 		
-		if (shopaholic.getEmail() == null || shopaholic.getEmail().equals("")) {
+		if (user.getEmail() == null || user.getEmail().equals("")) {
 			addFieldError("email", getText("clostar.error.notnullable"));
 		}
-		if (shopaholic.getFirstName() == null || shopaholic.getFirstName().equals("")) {
+		if (user.getFirstName() == null || user.getFirstName().equals("")) {
 			addFieldError("firstName", getText("clostar.error.notnullable"));
 		}
-		if (shopaholic.getLastName() == null || shopaholic.getLastName().equals("")) {
+		if (user.getLastName() == null || user.getLastName().equals("")) {
 			addFieldError("lastName", getText("clostar.error.notnullable"));
 		}
-		if (shopaholic.getPassword() == null || shopaholic.getPassword().equals("")) {
+		if (user.getPassword() == null || user.getPassword().equals("")) {
 			addFieldError("password", getText("clostar.error.notnullable"));
 		}
 		
@@ -28,13 +28,13 @@ public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
 			return INPUT;
 		}
 
-		boolean isExistent = new ShopaholicDAO().isUserExistent(shopaholic.getEmail());
+		boolean isExistent = new UserDAO().isUserExistent(user.getEmail());
 		if (isExistent) {
 			addActionError(getText("clostar.error.signup.userexistent"));
 			return INPUT;
 		}
 		
-		new ShopaholicDAO().saveOrUpdate(shopaholic, false);
+		new UserDAO().saveOrUpdate(user, false);
 		
 //		SendEmail se = new SendEmail("steliana.goga@gmail.com");
 //		se.sendTextMail("Subject - clostar", "You have been signed up!");
@@ -43,10 +43,10 @@ public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
 
 	public String signIn() throws Exception {
 
-		if (shopaholic.getEmail() == null || shopaholic.getEmail().equals("")) {
+		if (user.getEmail() == null || user.getEmail().equals("")) {
 			addFieldError("email", getText("clostar.error.notnullable"));
 		}
-		if (shopaholic.getPassword() == null || shopaholic.getPassword().equals("")) {
+		if (user.getPassword() == null || user.getPassword().equals("")) {
 			addFieldError("password", getText("clostar.error.notnullable"));
 		}
 		
@@ -54,17 +54,17 @@ public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
 			return INPUT;
 		}
 
-		boolean isExistent = new ShopaholicDAO().isUserExistent(shopaholic.getEmail(), shopaholic.getPassword());
+		boolean isExistent = new UserDAO().isUserExistent(user.getEmail(), user.getPassword());
 		if (!isExistent) {
 			addActionError(getText("clostar.error.signin.userinexistent"));
 			return INPUT;
 		}
-		shopaholic = new ShopaholicDAO().getUser(shopaholic.getEmail());
-		if (shopaholic == null) {
+		user = new UserDAO().getUser(user.getEmail());
+		if (user == null) {
 			return ERROR;
 		}
-		new ShopaholicDAO().saveOrUpdate(shopaholic, true);
-		getSessionManager().initSession(shopaholic);
+		new UserDAO().saveOrUpdate(user, true);
+		getSessionManager().initSession(user);
 		checkTargetAction();
 	    return SUCCESS;
 	}
@@ -76,7 +76,7 @@ public class SignAction extends SuperAction implements ModelDriven<Shopaholic>{
 	}
     
 	@Override
-	public Shopaholic getModel() {
-		return shopaholic;
+	public User getModel() {
+		return user;
 	}
 }

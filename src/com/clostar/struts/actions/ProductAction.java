@@ -1,10 +1,15 @@
 package com.clostar.struts.actions;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
+
+import com.clostar.business.FileManager;
 import com.clostar.db.dao.MeasureDAO;
 import com.clostar.db.dao.ProdPicDAO;
 import com.clostar.db.dao.ProductDAO;
@@ -21,6 +26,7 @@ public class ProductAction extends SuperAction
 	implements ModelDriven<Product>{
 
 	private Product product = new Product();
+	private Integer prodId;
 	private Integer measuresNo;
 	private List<Integer> mQuantity = new ArrayList<Integer>();
 	private List<String> measure = new ArrayList<String>();
@@ -157,6 +163,37 @@ public class ProductAction extends SuperAction
 	    return SUCCESS;
 	}
 
+	public String showProduct() throws Exception {
+		product = new ProductDAO().getById(product.getId());
+		List<ProdPic> pics = new ProdPicDAO().findByProdId(product);
+
+		this.profilePicFileName = product.getPicture1Id() + ".jpg";
+		String dir = ServletActionContext.getServletContext().getRealPath("/") + "temp_images";
+		FileManager.removeUserDirectory(dir);
+		FileManager.createUserDirectory(dir);
+		for (ProdPic pic : pics) {
+			if (pic.getId() != product.getPicture1Id()) {
+				fileUploadFileName.add(pic.getId() + ".jpg");
+			}
+			
+			try {
+				File file = new File(dir + File.separator + pic.getId() + ".jpg");
+				FileOutputStream out = new FileOutputStream(file);
+				out.write(pic.getPicture());
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		List<Measure> measures = new MeasureDAO().getByProduct(product);
+		for (Measure m : measures) {
+			measure.add(m.getMeasure());
+		}
+		
+		return SUCCESS;
+	}
+	
 	@Override
 	public Product getModel() {
 		return product;
@@ -241,5 +278,13 @@ public class ProductAction extends SuperAction
 
 	public void setSeasons(List<Integer> seasons) {
 		this.seasons = seasons;
+	}
+
+	public Integer getProdId() {
+		return prodId;
+	}
+
+	public void setProdId(Integer prodId) {
+		this.prodId = prodId;
 	}
 }

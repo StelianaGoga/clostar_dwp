@@ -1,12 +1,11 @@
 package com.clostar.struts.actions;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.clostar.business.FileManager;
 import com.clostar.db.dao.ProductDAO;
 import com.clostar.db.model.Product;
 import com.clostar.wrappers.ProductWrapper;
@@ -21,9 +20,9 @@ public class ProductsCriteriaAction extends SuperAction {
 		List<Product> resProd = new ProductDAO().findByGenderAndType(genderId, typeId, null);
 		
 		String dir = ServletActionContext.getServletContext().getRealPath("/") + "temp_images";
-		removeUserDirectory(dir);
+		FileManager.removeUserDirectory(dir);
 		if (resProd != null && !resProd.isEmpty()) {
-			createUserDirectory(dir);
+			FileManager.createUserDirectory(dir);
 			
 			for (Product prod : resProd) {
 				result.add(new ProductWrapper(prod, dir));
@@ -32,7 +31,7 @@ public class ProductsCriteriaAction extends SuperAction {
 		
 		return SUCCESS;
 	}
-
+	/*
 	private void createUserDirectory(String dir) {
 		new File(dir).mkdir();
 	}
@@ -78,7 +77,7 @@ public class ProductsCriteriaAction extends SuperAction {
 	    		file.delete();
 	    		System.out.println("File is deleted : " + file.getAbsolutePath());
 	    	}
-	    }
+	    }*/
 	
 	public Integer getTypeId() {
 		return typeId;

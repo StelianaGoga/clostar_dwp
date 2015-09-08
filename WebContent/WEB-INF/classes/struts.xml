@@ -84,5 +84,10 @@
 		      method="simpleCriteria">
 		    <result name="success">/list_products.jsp</result>
 		</action>
+		<action name="show_product" 
+		      class="com.clostar.struts.actions.ProductAction" 
+		      method="showProduct">
+		    <result name="success">/show_product.jsp</result>
+		</action>
    </package>
 </struts>

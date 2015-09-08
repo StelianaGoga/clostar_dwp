@@ -1,9 +1,6 @@
 package com.clostar.utils;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletConfig;
@@ -24,23 +21,7 @@ public class InitServlet extends GenericServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
         super.init(config);
-
-//        InputStream fileInputStream = InitServlet.class.getResourceAsStream("/log4j.properties");
-//        if (fileInputStream != null) {
-//            PropertyConfigurator.configure(fileInputStream);
-//        } else {
-//            logger.error("the log4j.properties file was not found");
-//        }
         
-//        Enumeration<?> al = Logger.getRootLogger().getAllAppenders();
-//        while(al.hasMoreElements()){
-//            Object a = al.nextElement();
-//            if(a instanceof Log4jJDBCAppender){
-//                Log4jJDBCAppender log4jJDBCAppender = (Log4jJDBCAppender)a;
-//                Log4jJDBCAppender.setApplicationNameAndIP(log4jJDBCAppender.getName() + " [" + getAddressIp() + "]");
-//            }
-//        }
-
         // init app path
         DefaultConfigs.setApplicationPath(getServletContext().getRealPath("/"));
 
@@ -50,11 +31,6 @@ public class InitServlet extends GenericServlet {
         	ActionContext.getContext().setLocale(DefaultConfigs.getApplicationLocale());
         	ActionContext.getContext().getSession().put(Constants.USER_ID, null);
         	
-            // login
-        	//DefaultConfigs.setLoginEnabled(Boolean.valueOf(Config.getLoginEnabled()));
-            
-            // properties
-        	//DefaultConfigs.setProperties(Config.getProperties());
         } catch (Exception ie) {
             throw new ServletException(ie);
         }
@@ -72,37 +48,4 @@ public class InitServlet extends GenericServlet {
         throw new ServletException("Sorry, this servlet has only init role !!");
     }
     
-    private String getAddressIp(){
-        InetAddress addr = null;
-        InetAddress addr172 = null;
-        try {
-            // Replace eth0 with your interface name
-            Enumeration<NetworkInterface> nie = NetworkInterface.getNetworkInterfaces();
-            while (nie.hasMoreElements()) {
-                NetworkInterface ni = nie.nextElement();
-                Enumeration<InetAddress> iae = ni.getInetAddresses();
-                
-                while (iae.hasMoreElements()) {
-                    InetAddress ia = iae.nextElement();
-                    byte bs[] = ia.getAddress();
-                    if (bs.length == 4 && bs[0] != 127) {
-                        addr = ia;
-                    }
-                    if (bs.length == 4 && (bs[0] == 172 || bs[0] == -84)) {
-                        addr172 = ia;
-                    }
-                }
-
-            }
-        } catch (Throwable t) { t.printStackTrace(); }
-        
-        String serverIp = "";
-        if(addr172 != null){
-            serverIp = addr172.getHostAddress();
-        }
-        if(addr172==null && addr != null){
-            serverIp = addr.getHostAddress();
-        }
-        return serverIp;
-    }
 }

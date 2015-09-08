@@ -1,0 +1,68 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<s:if test="genderId == 1">
+	<s:text name="clostar.menu.person.women"/>
+</s:if>
+<s:elseif test="genderId == 2">
+	<s:text name="clostar.menu.person.men"/>
+</s:elseif>
+<s:elseif test="genderId == 3">
+	<s:text name="clostar.menu.person.children"/>
+</s:elseif>
+
+ > 
+
+<s:if test="typeId == 0">
+	<s:text name="clostar.menu.product.dresses"/>
+</s:if>
+<s:elseif test="typeId == 1">
+	<s:text name="clostar.menu.product.jackets"/>
+</s:elseif>
+<s:elseif test="typeId == 2">
+	<s:text name="clostar.menu.product.jeans"/>
+</s:elseif>
+<s:elseif test="typeId == 3">
+	<s:text name="clostar.menu.product.tops"/>
+</s:elseif>
+<s:elseif test="typeId == 4">
+	<s:text name="clostar.menu.product.skirts"/>
+</s:elseif>
+<s:elseif test="typeId == 5">
+	<s:text name="clostar.menu.product.shirts"/>
+</s:elseif>
+<s:elseif test="typeId == 6">
+	<s:text name="clostar.menu.product.tshirts"/>
+</s:elseif>
+<s:elseif test="typeId == 7">
+	<s:text name="clostar.menu.product.trousers"/>
+</s:elseif>
+<s:elseif test="typeId == 8">
+	<s:text name="clostar.menu.product.coats"/>
+</s:elseif>
+<s:elseif test="typeId == 9">
+	<s:text name="clostar.menu.product.allshoes"/>
+</s:elseif>
+<s:elseif test="typeId == 10">
+	<s:text name="clostar.menu.product.allshoes"/>
+</s:elseif>
+<s:elseif test="typeId == 11">
+	<s:text name="clostar.menu.product.bottoms"/>
+</s:elseif>
+<s:elseif test="typeId == 12">
+	<s:text name="clostar.menu.product.fullcostume"/>
+</s:elseif>
+<s:elseif test="typeId == 13">
+	<s:text name="clostar.menu.product.shoes"/>
+</s:elseif>
+<s:elseif test="typeId == 14">
+	<s:text name="clostar.menu.product.sandals"/>
+</s:elseif>
+<s:elseif test="typeId == 15">
+	<s:text name="clostar.menu.product.moccasins"/>
+</s:elseif>
+<s:elseif test="typeId == 16">
+	<s:text name="clostar.menu.product.sportshoes"/>
+</s:elseif>
+<s:elseif test="typeId == 17">
+	<s:text name="clostar.menu.product.boots"/>
+</s:elseif> 

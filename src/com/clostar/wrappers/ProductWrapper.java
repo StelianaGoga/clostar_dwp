@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
-
 import com.clostar.db.dao.ProdPicDAO;
 import com.clostar.db.model.ProdPic;
 import com.clostar.db.model.Product;
@@ -62,8 +60,6 @@ public class ProductWrapper {
 			}
 		}
 		
-		//firstPicPath = firstPicPath.replace("\\", "\\\\");
-		//secondPicPath = secondPicPath.replace("\\", "\\\\");
 	}
 	
 	public Product getProduct() {

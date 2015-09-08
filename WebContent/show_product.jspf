@@ -1,0 +1,49 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<div class="row">
+	<div class="col-md-1 col-md-offset-1">				
+		<img id="<s:property value='profilePicFileName'/>" src="temp_images/<s:property value='profilePicFileName'/>" 
+			alt="<s:property value='profilePicFileName'/>" style="width:60px;height:70px;" onclick='change_big_pic("temp_images/<s:property value='profilePicFileName'/>")'/>
+		<br/>
+		
+		<s:iterator value="fileUploadFileName" status="listStatus" var="file">
+			<img id="<s:property value='#file'/>" src="temp_images/<s:property value='#file'/>" alt="<s:property value='#file'/>" 
+				style="width:60px;height:70px;" onclick='change_big_pic("temp_images/<s:property value='#file'/>")'/>
+			<br/>
+		</s:iterator>
+	</div>
+	
+	<div class="col-md-3">				
+		<img id="big_pic" src="temp_images/<s:property value='profilePicFileName'/>" alt="<s:property value='profilePicFileName'/>" 
+				style="width:320px;height:350px;"/>
+	</div>
+	
+	<div class="col-md-4 col-md-offset-1" align="left">
+		<h3><s:property value='model.name'/></h3>
+		<s:if test="model.brand != null && !model.brand.isEmpty()"><h4><s:text name="clostar.prod.brand.by"/> <s:property value='model.brand'/></h4></s:if>
+		<s:if test="model.description != null && !model.description.isEmpty()"><h5><s:property value='model.description'/></h5></s:if>
+		<s:if test="model.materials != null && !model.materials.isEmpty()"><h6><s:text name="clostar.prod.materials"/>: <s:property value='model.materials'/></h6></s:if>
+	
+		<br/><br/>
+		<form class="form-horizontal" action="add_to_cart" method="POST" enctype="multipart/form-data">
+			<div class="form-group">
+				<label id="radioLabel" for="measureRadio"><s:text name="clostar.prod.choose.measure"/></label>
+				<br/>
+				<%-- <s:radio id="measureRadio" list="#{'1':'XS','2':'S','3':'M','4':'L','5':'XL'}"/> --%>
+				<s:radio id="measureRadio" list="measure"/>
+			</div>
+			<div class="form-group">
+				<label id="numberLabel" for="quantityNumber"><s:text name="clostar.prod.choose.quantity"/></label>
+				<br/>
+				<input type="number" min="0" max="<s:property value='model.quantity'/>" id="quantityNumber">
+			</div>
+			<div class="form-group">
+				<br/>
+				<button type="submit" disabled="disabled" class="btn btn-default"><s:text name="clostar.prod.add.cart"/></button>
+				<br/>
+				<a href="add_to_favs" contenteditable="false"><s:text name="clostar.prod.add.favs"/></a>
+			</div>
+			
+		</form>
+	</div>
+</div>

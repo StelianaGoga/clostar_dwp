@@ -1,9 +1,15 @@
 package com.clostar.struts.actions;
 
 import java.io.File;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.clostar.db.dao.MeasureDAO;
+import com.clostar.db.dao.ProdPicDAO;
+import com.clostar.db.dao.ProductDAO;
+import com.clostar.db.model.Measure;
+import com.clostar.db.model.ProdPic;
 import com.clostar.db.model.Product;
 import com.clostar.db.model.User;
 import com.clostar.utils.Constants;
@@ -34,7 +40,6 @@ public class ProductAction extends SuperAction
 			getSessionManager().putKey(Constants.TARGET, "new_product_details");
 			return LOGIN;
 		}
-		System.out.println(seasons);
 		if (product.getName() == null || product.getName().equals("")) {
 			addFieldError("name", getText("clostar.error.notnullable"));
 		}
@@ -65,11 +70,13 @@ public class ProductAction extends SuperAction
 				if (mQuantity.get(i) == null || mQuantity.get(i) < 0) {
 					addFieldError("measures", getText("clostar.error.measure.nn"));
 					pp = 1;
+					break;
 				}
 				if (mQuantity.get(i) != null && mQuantity.get(i) > 0 && 
 						(measure.get(i) == null || measure.get(i).equals(""))) {
 					addFieldError("measures", getText("clostar.error.measure.nn"));
 					pp = 1;
+					break;
 				}
 				if (mQuantity.get(i) != null && mQuantity.get(i) > 0) {
 					q += mQuantity.get(i);
@@ -80,7 +87,6 @@ public class ProductAction extends SuperAction
 				addFieldError("measures", getText("clostar.error.measure.quantity"));
 			}
 		}
-		
 		if (profilePic == null || profilePicFileName == null || profilePicFileName.equals("")) {
 			addFieldError("profilePicture", getText("clostar.error.prodpicnotnullable"));
 		}
@@ -88,31 +94,66 @@ public class ProductAction extends SuperAction
 		if (hasErrors()) {
 			return INPUT;
 		}
-/*
-		boolean isExistent = new UserDAO().isUserExistent(user.getEmail(), user.getPassword());
-		if (!isExistent) {
-			addActionError(getText("clostar.error.signin.userinexistent"));
-			return INPUT;
-		}*/
 		
 		System.out.println(product);
 		product.setUser((User)ActionContext.getContext().getSession().get(Constants.USER));
-		System.out.println(profilePicFileName);
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        session.saveOrUpdate(product);
-//        session.getTransaction().commit();
-		for (File file: fileUpload) {
-	        System.out.println("File :" + file);
-	    }
-	    
-	    for (String fileName: fileUploadFileName) {
-	        System.out.println("Filename : " + fileName);
-	    }
+		product.setSoldQuantity(0);
 
-	    for (String fileContentType: fileUploadContentType) {
-	        System.out.println("File type : " + fileContentType);
-	    }
+		int season_id = 0;
+		for (int s : seasons) {
+			season_id += s;
+		}
+		product.setSeasonId(season_id);
+		product.setActiveInd(com.clostar.db.utils.Constants.ACTIVE_IND);
+		
+		new ProductDAO().saveOrUpdate(product);
+
+		RandomAccessFile file = new RandomAccessFile(profilePic, "r");
+		byte[] picture = new byte[(int)profilePic.length()];
+		if (file.read(picture) == (int)profilePic.length()) {
+			ProdPic pic = new ProdPic();
+			pic.setProduct(product);
+			pic.setProfileInd(1);
+			pic.setPicture(picture);
+			pic.setSize((int)profilePic.length());
+			pic.setContentType(profilePicContentType);
+			pic.setFileName(profilePicFileName);
+			pic.setActiveInd(com.clostar.db.utils.Constants.ACTIVE_IND);
+			new ProdPicDAO().saveOrUpdate(pic);
+			product.setPicture1Id(pic.getId());
+			new ProductDAO().saveOrUpdate(product);
+		}
+		file.close();
+		
+		for (int i = 0; i < fileUpload.size(); i++) {
+			file = new RandomAccessFile(fileUpload.get(i), "r");
+			picture = new byte[(int)fileUpload.get(i).length()];
+			if (file.read(picture) == (int)fileUpload.get(i).length()) {
+				ProdPic pic = new ProdPic();
+				pic.setProduct(product);
+				pic.setProfileInd(0);
+				pic.setPicture(picture);
+				pic.setSize((int)profilePic.length());
+				pic.setContentType(profilePicContentType);
+				pic.setFileName(profilePicFileName);
+				pic.setActiveInd(com.clostar.db.utils.Constants.ACTIVE_IND);
+				new ProdPicDAO().saveOrUpdate(pic);
+			}
+			file.close();
+		}
+		
+		for (int i = 0; i < mQuantity.size(); i++) {
+			Measure m = new Measure();
+			m.setMeasure(measure.get(i));
+			m.setQuantity(mQuantity.get(i));
+			m.setQuantityAvail(mQuantity.get(i));
+			m.setQuantitySold(0);
+			m.setProduct(product);
+			m.setPrice(product.getPrice());
+			m.setCurrency(product.getCurrency());
+			m.setActiveInd(com.clostar.db.utils.Constants.ACTIVE_IND);
+			new MeasureDAO().saveOrUpdate(m);
+		}
 	    return SUCCESS;
 	}
 
@@ -135,6 +176,15 @@ public class ProductAction extends SuperAction
 
 	public void setProfilePicContentType(String profilePicContentType) {
 		this.profilePicContentType = profilePicContentType;
+	}
+
+
+	public String getProfilePicFileName() {
+		return profilePicFileName;
+	}
+
+	public void setProfilePicFileName(String profilePicFileName) {
+		this.profilePicFileName = profilePicFileName;
 	}
 
 	public List<File> getFileUpload() {

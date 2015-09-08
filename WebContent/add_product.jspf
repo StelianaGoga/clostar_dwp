@@ -53,9 +53,10 @@
 		<label for="currency_dropbox" class="col-sm-2 control-label"><s:text name="clostar.product.currency"/></label>
 		<div class="col-sm-2" align="left" style="padding-top: 5px;">
 			<select id="currency_dropbox" name="currency">
-				<option value="0">Euro</option>
-				<option value="1">Pounds</option>
+				<option value="0">EUR</option>
+				<option value="1">GBP</option>
 				<option value="2">RON</option>
+				<option value="3">USD</option>
 			</select>
 		</div>
 	</div>
@@ -85,7 +86,7 @@
 						</div>
 						<label for="measure" class="col-sm-2 control-label"><s:text name="clostar.product.measure"/></label>
 						<div class="col-sm-4" align="left">
-							<input type="text" class="form-control" maxlength="5" placeholder='<s:text name="clostar.product.measure"/>' name="measure" value='<s:property value="top" />'>
+							<input type="text" class="form-control" maxlength="8" placeholder='<s:text name="clostar.product.measure"/>' name="measure" value='<s:property value="top" />'>
 						</div>
 					</div>
 				</s:iterator>

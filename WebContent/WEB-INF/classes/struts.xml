@@ -79,5 +79,10 @@
 			<result name="input">/add_product.jsp</result>
 		    <result name="success">/my_account.jsp</result>
 		</action>
+		<action name="list_products" 
+		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
+		      method="simpleCriteria">
+		    <result name="success">/list_products.jsp</result>
+		</action>
    </package>
 </struts>

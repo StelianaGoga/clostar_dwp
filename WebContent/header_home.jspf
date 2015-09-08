@@ -56,58 +56,58 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.women"/></s:i18n> 
           		<span class="caret"></span></a>
           <ul class="dropdown-menu"  role="menu" aria-labelledby="dLabel">
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.coats"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shirts"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=8"><s:i18n name="global"><s:text name="clostar.menu.product.coats"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=0"><s:i18n name="global"><s:text name="clostar.menu.product.dresses"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=1"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=2"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=5"><s:i18n name="global"><s:text name="clostar.menu.product.shirts"/></s:i18n></a></li>
             <li class="dropdown dropdown-submenu">
             	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
             		<s:i18n name="global"><s:text name="clostar.menu.product.allshoes"/></s:i18n></a>
             	<ul class="dropdown-menu" role="menu">
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=1&typeId=17"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=1&typeId=15"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=1&typeId=14"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=1&typeId=13"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=1&typeId=16"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
 				</ul>
 			</li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.trousers"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=4"><s:i18n name="global"><s:text name="clostar.menu.product.skirts"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=3"><s:i18n name="global"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=7"><s:i18n name="global"><s:text name="clostar.menu.product.trousers"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=1&typeId=6"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.men"/></s:i18n> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.coats"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shirts"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=8"><s:i18n name="global"><s:text name="clostar.menu.product.coats"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=1"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=2"><s:i18n name="global"><s:text name="clostar.menu.product.jeans"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=5"><s:i18n name="global"><s:text name="clostar.menu.product.shirts"/></s:i18n></a></li>
             <li class="dropdown dropdown-submenu">
             	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
             		<s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a>
             	<ul class="dropdown-menu" role="menu">
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
-		            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=2&typeId=17"><s:i18n name="global"><s:text name="clostar.menu.product.boots"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=2&typeId=15"><s:i18n name="global"><s:text name="clostar.menu.product.moccasins"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=2&typeId=14"><s:i18n name="global"><s:text name="clostar.menu.product.sandals"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=2&typeId=13"><s:i18n name="global"><s:text name="clostar.menu.product.shoes"/></s:i18n></a></li>
+		            <li><a href="list_products?genderId=2&typeId=16"><s:i18n name="global"><s:text name="clostar.menu.product.sportshoes"/></s:i18n></a></li>
 				</ul>
 			</li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.trousers"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=7"><s:i18n name="global"><s:text name="clostar.menu.product.trousers"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=2&typeId=6"><s:i18n name="global"><s:text name="clostar.menu.product.tshirts"/></s:i18n></a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"><s:i18n name="global"><s:text name="clostar.menu.person.children"/></s:i18n> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.bottoms"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.fullcostume"/></s:i18n></a></li>
-            <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.product.allshoes"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=3&typeId=11"><s:i18n name="global"><s:text name="clostar.menu.product.bottoms"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=3&typeId=3"><s:i18n name="global"><s:text name="clostar.menu.product.tops"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=3&typeId=1"><s:i18n name="global"><s:text name="clostar.menu.product.jackets"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=3&typeId=12"><s:i18n name="global"><s:text name="clostar.menu.product.fullcostume"/></s:i18n></a></li>
+            <li><a href="list_products?genderId=3&typeId=9"><s:i18n name="global"><s:text name="clostar.menu.product.allshoes"/></s:i18n></a></li>
           </ul>
         </li>
         <li><a href="#"><s:i18n name="global"><s:text name="clostar.menu.sales"/></s:i18n></a></li>

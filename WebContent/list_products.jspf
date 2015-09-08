@@ -1,0 +1,62 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="com.clostar.utils.Constants"%>
+
+<div class="row" style="padding-left:100px;padding-right:100px;padding-top:50px;">
+	<s:if test="result != null && result.size() > 0">
+		<s:property value="typeId"/>
+		
+		<s:iterator value="result" status="listStatus" var="pw">
+   			<div class="col-md-4" style="padding-right:10px;padding-left:10px;padding-bottom: 20px;" align="center">
+				<a href="#" class="thumbnail" onmouseover='show_pic_details("<s:property value='#pw.product.id'/>", "temp_images/<s:property value='#pw.secondPicPath'/>")'
+				 	onmouseout='hid_pic_details("<s:property value='#pw.product.id'/>", "temp_images/<s:property value='#pw.firstPicPath'/>")'>
+					<%-- <img src='temp/<s:property value="#prod.picture1Id"/>.jpg' alt="prod" style="width:150px;height:250px"> --%>
+					<img id="<s:property value='#pw.product.id'/>" src="temp_images/<s:property value='#pw.firstPicPath'/>" alt="<s:property value='#pw.product.name'/>" style="width:150px;height:250px">
+				</a>
+				<div id="picture_<s:property value='#pw.product.id'/>" style="display:none;margin-top:-100px;padding-bottom: 100px;">
+					<p><s:property value="#pw.product.price"/>
+						<s:if test="#pw.product.currency == 0"> EUR</s:if>
+						<s:elseif test="#pw.product.currency == 1"> GBP</s:elseif>
+						<s:elseif test="#pw.product.currency == 2"> RON</s:elseif>
+						<s:else> USD</s:else>
+					</p>
+					<button type="button" class="btn btn-default">Add to cart</button>
+				</div>
+			</div>
+		</s:iterator>
+	</s:if>
+	<s:else>
+		Result is null
+	</s:else>
+</div>
+<br/>
+<br/>
+<h2>BEST SOLD PRODUCTS</h2>
+<div class="row" style="padding-left:100px;padding-right:100px;padding-top:50px;">
+	<div class="col-md-4" style="padding-right:10px;" align="center">
+		<a href="#" class="thumbnail" onmouseover="show_pic_details(1)" onmouseout="hid_pic_details(1)">
+			<img src="images/best_1.jpg" alt="Best_prod" style="width:150px;height:250px">
+		</a>
+		<div id="best_1" style="display:none;margin-top:-100px">
+			<p>30 $</p>
+			<button type="button" class="btn btn-default">Add to cart</button>
+		</div>
+	</div>
+	<div class="col-md-4" style="padding-left:10px;padding-right:10px;" align="center">
+		<a href="#" class="thumbnail" onmouseover="show_pic_details(2)" onmouseout="hid_pic_details(2)">
+			<img src="images/best_2.jpg" alt="Best_prod" style="width:150px;height:250px">
+		</a>
+		<div id="best_2" style="display:none;margin-top:-100px">
+			<p>30 $</p>
+			<button type="button" class="btn btn-default">Add to cart</button>
+		</div>
+	</div>
+	<div class="col-md-4" style="padding-left:10px;" align="center">
+		<a href="#" class="thumbnail" onmouseover="show_pic_details(3)" onmouseout="hid_pic_details(3)">
+			<img src="images/best_3.jpg" alt="Best_prod" style="width:150px;height:250px;">
+		</a>
+		<div id="best_3" style="display:none;margin-top:-100px">
+			<p>30 $</p>
+			<button type="button" class="btn btn-default">Add to cart</button>
+		</div>
+	</div>
+</div>

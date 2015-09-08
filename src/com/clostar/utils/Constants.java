@@ -6,6 +6,20 @@ public class Constants {
 	public final static String TIME = "timestamp";
 	public final static String TARGET = "targetAction";
 
+	public final static String[] productTypesNameEng = {
+		"Dresses", "Jackets", "Jeans", "Tops", "Skirts", "Shirts",
+		"T-shirts", "Trousers", "Coats", "Shoes", "All", "Bottoms",
+		"Full Costumes", "Shoes", "Sandals", "Moccasins", "Sport Shoes",
+		"Boots"
+	};
+	
+	public final static String[] productTypesNameRo = {
+        "Rochii", "Jachete", "Blugi", "Topuri", "Fuste", "Camasi",
+        "Tricouri", "Pantaloni", "Geci", "Incaltaminte", "Toate", "Bottoms",
+        "Costume intregi", "Pantofi", "Sandale", "Mocasini", "Pantofi Sport", 
+        "Ghete"
+	};
+	
 	public enum Genders{
 		FEMALE(1),
 		MALE(2),
@@ -56,8 +70,9 @@ public class Constants {
 	
 	public enum Currency{
 		EURO(0),
-		POUNDS(1),
-		RON(2);
+		GBP(1),
+		RON(2),
+		USD(3);
 
         private int value;
 

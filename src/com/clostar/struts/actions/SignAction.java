@@ -2,6 +2,7 @@ package com.clostar.struts.actions;
 
 import com.clostar.db.dao.UserDAO;
 import com.clostar.db.model.User;
+import com.clostar.db.utils.Constants;
 import com.opensymphony.xwork2.ModelDriven;
 
 @SuppressWarnings("serial")
@@ -33,7 +34,9 @@ public class SignAction extends SuperAction implements ModelDriven<User>{
 			addActionError(getText("clostar.error.signup.userexistent"));
 			return INPUT;
 		}
-		
+
+		user.setActiveInd(Constants.ACTIVE_IND);
+		user.setEConfirm(Constants.INACTIVE_IND);
 		new UserDAO().saveOrUpdate(user, false);
 		
 //		SendEmail se = new SendEmail("steliana.goga@gmail.com");
@@ -59,7 +62,7 @@ public class SignAction extends SuperAction implements ModelDriven<User>{
 			addActionError(getText("clostar.error.signin.userinexistent"));
 			return INPUT;
 		}
-		user = new UserDAO().getUser(user.getEmail());
+		user = new UserDAO().getByEmail(user.getEmail());
 		if (user == null) {
 			return ERROR;
 		}

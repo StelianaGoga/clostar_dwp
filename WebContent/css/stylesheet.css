@@ -3,6 +3,9 @@
     width: 70%;
     margin: auto;
 }
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
 .dropdown-submenu {
   position:relative;
 }

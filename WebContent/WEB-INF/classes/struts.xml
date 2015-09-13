@@ -79,6 +79,14 @@
 			<result name="input">/add_product.jsp</result>
 		    <result name="success">/my_account.jsp</result>
 		</action>
+		<action name="add_to_favs" 
+		      class="com.clostar.struts.actions.ProductAction" 
+		      method="addToFavs">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+			<result name="input">/show_product.jsp</result>
+		    <result name="success" type="redirectAction">${targetAction}</result>
+		</action>
 		<action name="list_products" 
 		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
 		      method="simpleCriteria">
@@ -87,7 +95,47 @@
 		<action name="show_product" 
 		      class="com.clostar.struts.actions.ProductAction" 
 		      method="showProduct">
+			<result name="input">/show_product.jsp</result>
 		    <result name="success">/show_product.jsp</result>
+		</action>
+		<action name="add_to_cart" 
+		      class="com.clostar.struts.actions.CartAction" 
+		      method="addToCart">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+			<result name="input" type="redirectAction">
+    			<param name="actionName">show_product</param>
+    			<param name="id">${id}</param>
+    			<param name="name">${name}</param>
+    			<param name="name">${price}</param>
+    			<param name="name">${currency}</param>
+			</result>
+		    <result name="success" type="redirectAction">
+    			<param name="actionName">show_product</param>
+    			<param name="id">${id}</param>
+    			<param name="showModal">true</param>
+			</result>
+		</action>
+		<action name="show_cart" 
+		      class="com.clostar.struts.actions.CartAction" 
+		      method="showCart">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/show_cart.jsp</result>
+		</action>
+		<action name="remove_from_cart" 
+		      class="com.clostar.struts.actions.CartAction" 
+		      method="removeFromCart">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/show_cart.jsp</result>
+		</action>
+		<action name="prepare_address" 
+		      class="com.clostar.struts.actions.CartAction" 
+		      method="prepareAddress">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/my_cart.jsp</result>
 		</action>
    </package>
 </struts>

@@ -23,6 +23,6 @@
 		</s:iterator>
 	</s:if>
 	<s:else>
-		Result is null
+		<s:text name="clostar.criteria.result.null"/>
 	</s:else>
 </div>

@@ -1,3 +1,24 @@
+function validateItemToCart(){
+	if (document.getElementById("isSignIn").value == "false")
+		return true;
+	
+	var measure = document.getElementsByName("choosenMeasure");
+	var quantity = document.getElementById("quantityNumber").value;
+	var measureSelected = false;
+	for (var i = 0; i < measure.length; i++) {
+        if (measure[i].checked) {
+        	measureSelected = true;
+            break;
+        }
+    }
+	if (measureSelected == false || quantity == null || quantity == "" || quantity == "0") {
+		document.getElementById("errors").style.display = 'block';
+		return false;
+	}
+	document.getElementById("errors").style.display = 'none';
+	return true;
+}
+
 function make_option_elem(value, text) {
 	var option = document.createElement("option");
 	option.text = text;

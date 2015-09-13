@@ -46,6 +46,8 @@ public class SessionManager {
 	public void removeSession() {
 		removeKey(Constants.USER_ID);
 		removeKey(Constants.USER);
+		removeKey(Constants.CART);
+		removeKey(Constants.CART_SIZE);
 	}
 
 	public ActionContext getContext() {

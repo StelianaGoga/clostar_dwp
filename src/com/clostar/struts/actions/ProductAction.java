@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.struts2.ServletActionContext;
 
 import com.clostar.business.FileManager;
+import com.clostar.business.SessionManager;
 import com.clostar.db.dao.MeasureDAO;
 import com.clostar.db.dao.ProdPicDAO;
 import com.clostar.db.dao.ProductDAO;
@@ -18,6 +19,7 @@ import com.clostar.db.model.ProdPic;
 import com.clostar.db.model.Product;
 import com.clostar.db.model.User;
 import com.clostar.utils.Constants;
+import com.clostar.wrappers.CartWrapper;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -39,6 +41,10 @@ public class ProductAction extends SuperAction
 	private List<File> fileUpload = new ArrayList<File>();
 	private List<String> fileUploadContentType = new ArrayList<String>();
 	private List<String> fileUploadFileName = new ArrayList<String>();
+	
+	private String choosenMeasure;
+	private Integer choosenQuantity;
+	private boolean showModal;
 	
 	public String addProduct() throws Exception {
 		if(!getSessionManager().isSessionSignedIn()){
@@ -101,7 +107,6 @@ public class ProductAction extends SuperAction
 			return INPUT;
 		}
 		
-		System.out.println(product);
 		product.setUser((User)ActionContext.getContext().getSession().get(Constants.USER));
 		product.setSoldQuantity(0);
 
@@ -189,6 +194,83 @@ public class ProductAction extends SuperAction
 		List<Measure> measures = new MeasureDAO().getByProduct(product);
 		for (Measure m : measures) {
 			measure.add(m.getMeasure());
+		}
+			
+		return SUCCESS;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String addToCart() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()){
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_product?id=" + product.getId());
+			return LOGIN;
+		}
+		SessionManager sm = new SessionManager(ActionContext.getContext());
+		List<CartWrapper> cart = new ArrayList<CartWrapper>();
+		if(sm.getValueKey(Constants.CART) != null) {
+			cart = (List<CartWrapper>) sm.getValueKey(Constants.CART);
+		}
+		cart.add(new CartWrapper(product.getId(), product.getName(), getChoosenMeasure(), getChoosenQuantity(),
+				product.getPrice(), product.getCurrency()));
+		sm.putKey(Constants.CART, cart);
+		Integer size = 0;
+		if(sm.getValueKey(Constants.CART_SIZE) != null) {
+			size = (Integer) sm.getValueKey(Constants.CART_SIZE);
+		}
+		size += getChoosenQuantity();
+		sm.putKey(Constants.CART_SIZE, size);
+		return SUCCESS;
+	}
+
+	public String showCart() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()){
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_cart");
+			return LOGIN;
+		}
+
+		SessionManager sm = new SessionManager(ActionContext.getContext());
+		if(sm.getValueKey(Constants.CART) != null) {
+			@SuppressWarnings("unchecked")
+			List<CartWrapper> cart = (List<CartWrapper>) sm.getValueKey(Constants.CART);
+			Float total = new Float(0);
+			for (CartWrapper cw : cart) {
+				total += cw.getEuroPrice();
+			}
+			sm.putKey(Constants.CART_PRICE, total);
+		}
+		return SUCCESS;
+	}
+	
+	public String removeFromCart() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()){
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_cart");
+			return LOGIN;
+		}
+		SessionManager sm = new SessionManager(ActionContext.getContext());
+		if(sm.getValueKey(Constants.CART) != null) {
+			@SuppressWarnings("unchecked")
+			List<CartWrapper> cart = (List<CartWrapper>) sm.getValueKey(Constants.CART);
+			for (CartWrapper cw : cart) {
+				if (cw.getProductId() == product.getId()) {
+					Integer size = (Integer) sm.getValueKey(Constants.CART_SIZE);
+					size -= cw.getQuantity();
+					sm.putKey(Constants.CART_SIZE, size);
+					cart.remove(cw);
+					break;
+				}
+			}
+		}
+		return SUCCESS;
+	}
+	
+	public String addToFavs() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()){
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_product?id=" + product.getId());
+			return LOGIN;
 		}
 		
 		return SUCCESS;
@@ -286,5 +368,29 @@ public class ProductAction extends SuperAction
 
 	public void setProdId(Integer prodId) {
 		this.prodId = prodId;
+	}
+
+	public String getChoosenMeasure() {
+		return choosenMeasure;
+	}
+
+	public void setChoosenMeasure(String choosenMeasure) {
+		this.choosenMeasure = choosenMeasure;
+	}
+
+	public Integer getChoosenQuantity() {
+		return choosenQuantity;
+	}
+
+	public void setChoosenQuantity(Integer choosenQuantity) {
+		this.choosenQuantity = choosenQuantity;
+	}
+
+	public boolean isShowModal() {
+		return showModal;
+	}
+
+	public void setShowModal(boolean showModal) {
+		this.showModal = showModal;
 	}
 }

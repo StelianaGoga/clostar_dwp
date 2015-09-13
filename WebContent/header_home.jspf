@@ -30,10 +30,16 @@
 				<s:i18n name="global"><s:text name="clostar.header.home_page.favorites"/></s:i18n> 
 				<span class="badge">0</span> 
 			</a>
-			<a href="my_cart.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="show_cart" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-shopping-cart"></span>
 				<br/><s:i18n name="global"><s:text name="clostar.header.home_page.cart"/></s:i18n>
-				 <span class="badge">0</span> 
+				 <span class="badge">
+				 	<s:if test="#session.cart_size != null">
+				 		<s:property value="#session.cart_size"/>
+				 	</s:if>
+				 	<s:else>0
+				 	</s:else>
+				 </span> 
 			</a>
 		</div>
 	  </div>

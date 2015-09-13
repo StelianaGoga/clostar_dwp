@@ -5,6 +5,9 @@ public class Constants {
 	public final static String USER = "user";
 	public final static String TIME = "timestamp";
 	public final static String TARGET = "targetAction";
+	public final static String CART = "cart";
+	public final static String CART_SIZE = "cart_size";
+	public final static String CART_PRICE = "cart_price";
 
 	public final static String[] productTypesNameEng = {
 		"Dresses", "Jackets", "Jeans", "Tops", "Skirts", "Shirts",
@@ -19,6 +22,23 @@ public class Constants {
         "Costume intregi", "Pantofi", "Sandale", "Mocasini", "Pantofi Sport", 
         "Ghete"
 	};
+	
+	public enum Rates{
+		EUR(1),
+		GBP(1.36),
+		RON(0.23),
+		USD(0.88);
+
+        private double value;
+
+        Rates(double value) {
+            this.value = value;
+        }
+
+        public double doubleValue() {
+            return value;
+        }
+	}
 	
 	public enum Genders{
 		FEMALE(1),

@@ -16,47 +16,47 @@
       <div class="item active">
         <img src="images/carousel_00.jpg" alt="Chania" width="790" height="270">
         <div class="carousel-caption">
-          <h3>Chania</h3>
-          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+          <h3></h3>
+          <p></p>
         </div>
       </div>
 
       <div class="item">
         <img src="images/carousel_0.jpg" alt="Chania" width="790" height="270">
         <div class="carousel-caption">
-          <h3>Chania</h3>
-          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+          <h3></h3>
+          <p></p>
         </div>
       </div>
     
       <div class="item">
         <img src="images/carousel_1.jpg" alt="Flower" width="790" height="270">
         <div class="carousel-caption">
-          <h3>Flowers</h3>
-          <p>Beatiful flowers in Kolymbari, Crete.</p>
+          <h3></h3>
+          <p></p>
         </div>
       </div>
 
       <div class="item">
         <img src="images/carousel_2.jpg" alt="Flower" width="460" height="245">
         <div class="carousel-caption">
-          <h3>Flowers</h3>
-          <p>Beatiful flowers in Kolymbari, Crete.</p>
+          <h3></h3>
+          <p></p>
         </div>
       </div>
 	  
       <div class="item">
         <img src="images/carousel_3.jpg" alt="Flower" width="460" height="245">
         <div class="carousel-caption">
-          <h3>Flowers</h3>
-          <p>Beatiful flowers in Kolymbari, Crete.</p>
+          <h3></h3>
+          <p> .</p>
         </div>
       </div>
       <div class="item">
         <img src="images/carousel_4.jpg" alt="Flower" width="460" height="245">
         <div class="carousel-caption">
-          <h3>Flowers</h3>
-          <p>Beatiful flowers in Kolymbari, Crete.</p>
+          <h3></h3>
+          <p></p>
         </div>
       </div>
   
@@ -74,10 +74,8 @@
 	</div>
 	<div class="row" style="padding-top:20px;">
 		<div class="col-md-12" align="center">
-		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-		  incididunt ut labore et dolore magna aliqua.</p>
-		  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-		  aliquip ex ea commodo consequat.</p>
+		  <p></p>
+		  <p></p>
 		</div>
 	</div>
 	<div class="row" style="padding-left:100px;padding-right:100px;padding-top:50px;">

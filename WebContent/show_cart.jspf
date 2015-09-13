@@ -1,0 +1,48 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<div class="container">         
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th><s:text name="clostar.cart.prod.name"/></th>
+				<th><s:text name="clostar.cart.prod.measure"/></th>
+				<th><s:text name="clostar.cart.prod.quantity"/></th>
+				<th><s:text name="clostar.cart.prod.price"/></th>
+				<th><s:text name="clostar.cart.prod.euro"/></th>
+				<th><%-- <s:text name="clostar.cart.prod.remove"/> --%></th>
+			</tr>
+		</thead>
+		<tbody>
+			<s:if test="#session.cart_size != null && #session.cart_size > 0">
+				<s:iterator value="#session.cart" status="listStatus" var="cw">
+					<tr>
+						<td><a href="show_product?id=<s:property value='#cw.productId'/>"><s:property value='#cw.name'/></a></td>
+						<td><s:property value='#cw.measure'/></td>
+						<td><s:property value='#cw.quantity'/></td>
+						<td><s:property value='#cw.price'/>
+							<s:if test="#cw.currency == 0"> EUR</s:if>
+							<s:elseif test="#cw.currency == 1"> GBP</s:elseif>
+							<s:elseif test="#cw.currency == 2"> RON</s:elseif>
+							<s:else> USD</s:else>
+						</td>
+						<td><s:property value='#cw.euroPrice'/></td>
+						<td><a href="remove_from_cart?id=<s:property value='#cw.productId'/>">Remove</a></td>
+					</tr>
+				</s:iterator>
+			</s:if>
+		</tbody>
+	</table>
+	
+	<s:if test="#session.cart_size != null && #session.cart_size > 0">
+		<div class="col-md-3 col-md-offset-6" style="font-size: x-large;text-decoration: overline;padding-top:30px;">
+			<s:text name="clostar.cart.total"/>: <s:property value='#session.cart_price'/> EUR
+		</div>
+		<div class="col-md-3 col-md-offset-9" style="padding-top:30px;">
+			<form action="prepare_address" method="post">
+				<input type="submit" value='<s:text name="clostar.cart.continue"/>'>
+			</form>
+		</div>
+	</s:if>
+	
+</div>
+  

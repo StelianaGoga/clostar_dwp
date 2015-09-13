@@ -1,0 +1,55 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<div class="container">
+	<h3 style="padding-bottom: 30px;"><s:text name="clostar.orders.view"/></h3>
+	
+	<s:if test="userOrders == null || userOrders.size() == 0">
+		<s:text name="clostar.orders.none"/>
+	</s:if>
+	<s:else>
+  		<div class="panel-group" id="accordion">
+			<s:iterator value="userOrders" status="listStatus" var="uow">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse<s:property value='#listStatus.index'/>">
+							#<s:property value='#uow.userOrder.id'/>&emsp; - &emsp;<s:property value='#uow.userOrder.insertTs'/></a>
+						</h4>
+					</div>
+					<div id="collapse<s:property value='#listStatus.index'/>" class="panel-collapse collapse">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><s:text name="clostar.cart.prod.name"/></th>
+									<th><s:text name="clostar.cart.prod.measure"/></th>
+									<th><s:text name="clostar.cart.prod.quantity"/></th>
+									<th><s:text name="clostar.cart.prod.price"/></th>
+								</tr>
+							</thead>
+							<tbody>
+								<s:iterator value="#uow.orderDatas" status="listStatus2" var="od">
+									<tr>
+										<th><s:property value="prodName[#listStatus2.index]"/></th>
+										<th><s:property value="#od.measure"/></th>
+										<th><s:property value="#od.quantity"/></th>
+										<th><s:property value="#od.price"/>
+											<s:if test="#od.currency == 0"> EUR</s:if>
+											<s:elseif test="#od.currency == 1"> GBP</s:elseif>
+											<s:elseif test="#od.currency == 2"> RON</s:elseif>
+											<s:else> USD</s:else>
+										</th>
+									</tr>
+								</s:iterator>
+							</tbody>
+						</table>
+						<div class="panel-footer">
+							<s:text name="clostar.cart.total"/> : <s:property value="#uow.userOrder.euroPrice"/> EUR
+						</div>
+					</div>	
+				</div>
+			</s:iterator>
+		</div>
+	</s:else>
+    
+</div>
+  

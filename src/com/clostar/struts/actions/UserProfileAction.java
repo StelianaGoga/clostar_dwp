@@ -1,5 +1,6 @@
 package com.clostar.struts.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.clostar.db.dao.UserOrderDAO;
@@ -9,7 +10,7 @@ import com.clostar.wrappers.UserOrderWrapper;
 
 @SuppressWarnings("serial")
 public class UserProfileAction extends SuperAction {
-	List<UserOrderWrapper> userOrders;
+	private List<UserOrderWrapper> userOrders = new ArrayList<UserOrderWrapper>();
 
 	public String showAccount() throws Exception {
 		if(!getSessionManager().isSessionSignedIn()) {
@@ -30,9 +31,17 @@ public class UserProfileAction extends SuperAction {
 		List<UserOrder> orders = new UserOrderDAO().getByUser(getSessionManager().getSessionUser());
 		
 		for (UserOrder order : orders) {
-			userOrders.add(new UserOrderWrapper(order));
+			getUserOrders().add(new UserOrderWrapper(order));
 		}
 		
 	    return SUCCESS;
+	}
+	
+	public List<UserOrderWrapper> getUserOrders() {
+		return userOrders;
+	}
+
+	public void setUserOrders(List<UserOrderWrapper> userOrders) {
+		this.userOrders = userOrders;
 	}
 }

@@ -2,19 +2,22 @@
 <div class="row">
 	<div class="col-md-12">
 		<ul style="list-style: none;line-height: 30px;font: bold;">
-			<li><a href="#">
+			<%-- <li><a href="#">
 				<s:i18n name="global"><s:text name="clostar.my_account.profile_settings"/></s:i18n>
+			</a></li> --%>
+			<li><a href="view_my_products">
+				<s:i18n name="global"><s:text name="clostar.my_account.my_products"/></s:i18n>
 			</a></li>
         	<li><a href="new_product_details">
         		<s:i18n name="global"><s:text name="clostar.my_account.add_items"/></s:i18n>
         	</a></li>
-        	<li><a href="#">
+        	<li><a href="show_orders">
         		<s:i18n name="global"><s:text name="clostar.my_account.past_orders"/></s:i18n>
         	</a></li>
-        	<li><a href="#">
+        	<li><a href="view_my_sold">
         		<s:i18n name="global"><s:text name="clostar.my_account.items_sold"/></s:i18n>
         	</a></li>
-        	<li><a href="#">
+        	<li><a href="show_favorites">
         		<s:i18n name="global"><s:text name="clostar.my_account.favorites"/></s:i18n>
         	</a></li>
       </ul>

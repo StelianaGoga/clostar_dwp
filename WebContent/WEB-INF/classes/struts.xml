@@ -171,5 +171,19 @@
 		    <result name="login">/sign_in.jsp</result>
 		    <result name="success">/show_orders.jsp</result>
 		</action>
+		<action name="view_my_sold" 
+		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
+		      method="viewMySoldItems">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/list_products.jsp</result>
+		</action>
+		<action name="view_my_products" 
+		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
+		      method="viewMyProducts">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/list_products.jsp</result>
+		</action>
    </package>
 </struts>

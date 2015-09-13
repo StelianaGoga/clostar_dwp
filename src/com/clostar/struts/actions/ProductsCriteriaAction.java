@@ -7,8 +7,10 @@ import org.apache.struts2.ServletActionContext;
 
 import com.clostar.business.FileManager;
 import com.clostar.db.dao.FavoritesDAO;
+import com.clostar.db.dao.OrderDataDAO;
 import com.clostar.db.dao.ProductDAO;
 import com.clostar.db.model.Favorites;
+import com.clostar.db.model.OrderData;
 import com.clostar.db.model.Product;
 import com.clostar.db.model.User;
 import com.clostar.utils.Constants;
@@ -19,19 +21,11 @@ public class ProductsCriteriaAction extends SuperAction {
 	private Integer typeId;
 	private Integer genderId;
 	private List<ProductWrapper> result = new ArrayList<ProductWrapper>();
-
+	
 	public String simpleCriteria() throws Exception {
 		List<Product> resProd = new ProductDAO().findAvailByGenderAndType(genderId, typeId, null);
-		
-		String dir = ServletActionContext.getServletContext().getRealPath("/") + "temp_images";
-		FileManager.removeUserDirectory(dir);
-		if (resProd != null && !resProd.isEmpty()) {
-			FileManager.createUserDirectory(dir);
-			
-			for (Product prod : resProd) {
-				result.add(new ProductWrapper(prod, dir));
-			}
-		}
+
+		generateImages(resProd);
 		
 		return SUCCESS;
 	}
@@ -52,18 +46,54 @@ public class ProductsCriteriaAction extends SuperAction {
 			if (prod.getActiveInd() == com.clostar.db.utils.Constants.ACTIVE_IND)
 				resProd.add(prod);
 		}
+		generateImages(resProd);
 		
+		return SUCCESS;
+	}
+
+	public String viewMySoldItems() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()) {
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_account");
+			return LOGIN;
+		}
+		
+		List<OrderData> orderDatas = new OrderDataDAO().getByOwnerId(getSessionManager().getSessionUser().getId());
+		List<Product> sold = new ArrayList<Product>();
+		for (OrderData od : orderDatas) {
+			Product prod = new ProductDAO().getById(od.getProdId());
+			if (prod != null) {
+				sold.add(prod);
+			}
+		}
+		generateImages(sold);
+		
+	    return SUCCESS;
+	}
+	
+	public String viewMyProducts() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()) {
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_account");
+			return LOGIN;
+		}
+		
+		List<Product> prods = new ProductDAO().getByUser(getSessionManager().getSessionUser());
+		generateImages(prods);
+		
+	    return SUCCESS;
+	}
+	
+	public void generateImages(List<Product> prods) {
 		String dir = ServletActionContext.getServletContext().getRealPath("/") + "temp_images";
 		FileManager.removeUserDirectory(dir);
-		if (resProd != null && !resProd.isEmpty()) {
+		if (prods != null && !prods.isEmpty()) {
 			FileManager.createUserDirectory(dir);
 			
-			for (Product prod : resProd) {
+			for (Product prod : prods) {
 				result.add(new ProductWrapper(prod, dir));
 			}
 		}
-		
-		return SUCCESS;
 	}
 	
 	public Integer getTypeId() {

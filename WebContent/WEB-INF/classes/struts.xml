@@ -85,7 +85,27 @@
 		    <interceptor-ref name="SessionInterceptor"/>
 		    <result name="login">/sign_in.jsp</result>
 			<result name="input">/show_product.jsp</result>
-		    <result name="success" type="redirectAction">${targetAction}</result>
+		    <result name="success" type="redirectAction">
+    			<param name="actionName">show_product</param>
+    			<param name="id">${id}</param>
+			</result>
+		</action>
+		<action name="remove_from_favs" 
+		      class="com.clostar.struts.actions.ProductAction" 
+		      method="removeFromFavs">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+			<result name="input">/show_product.jsp</result>
+		    <result name="success" type="redirectAction">
+    			<param name="actionName">show_product</param>
+    			<param name="id">${id}</param>
+			</result>
+		</action>
+		<action name="show_favorites" 
+		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
+		      method="showFavorites">
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/list_products.jsp</result>
 		</action>
 		<action name="list_products" 
 		      class="com.clostar.struts.actions.ProductsCriteriaAction" 
@@ -135,7 +155,21 @@
 		      method="prepareAddress">
 		    <interceptor-ref name="SessionInterceptor"/>
 		    <result name="login">/sign_in.jsp</result>
-		    <result name="success">/my_cart.jsp</result>
+		    <result name="success">/add_address.jsp</result>
+		</action>
+		<action name="send_order" 
+		      class="com.clostar.struts.actions.CartAction" 
+		      method="sendOrder">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/order_confirmed.jsp</result>
+		</action>
+		<action name="show_orders" 
+		      class="com.clostar.struts.actions.UserProfileAction" 
+		      method="showOrders">
+		    <interceptor-ref name="SessionInterceptor"/>
+		    <result name="login">/sign_in.jsp</result>
+		    <result name="success">/show_orders.jsp</result>
 		</action>
    </package>
 </struts>

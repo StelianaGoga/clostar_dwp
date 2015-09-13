@@ -3,6 +3,10 @@
 	<div class="page-header">
 		<div class="row" style="margin-top: -40px;padding-bottom: 10px;">
 			<div class="col-md-4 col-md-offset-8" align="right">
+			
+				<s:if test="#session.user != null">
+						[<s:property value="#session.user.email"/>]
+				</s:if>
 				<s:url id="localeEN" namespace="/" action="locale" >
 				   <s:param name="request_locale">en</s:param>
 				</s:url>
@@ -25,10 +29,16 @@
 				<span class="glyphicon glyphicon-user"></span> <br/>
 				<s:i18n name="global"><s:text name="clostar.header.home_page.account"/></s:i18n>
 			</a>
-			<a href="my_favorites.jsp" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
+			<a href="show_favorites" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-star-empty"></span><br/>
 				<s:i18n name="global"><s:text name="clostar.header.home_page.favorites"/></s:i18n> 
-				<span class="badge">0</span> 
+				<span class="badge">
+				 	<s:if test="#session.favs_size != null">
+				 		<s:property value="#session.favs_size"/>
+				 	</s:if>
+				 	<s:else>0
+				 	</s:else>
+				</span> 
 			</a>
 			<a href="show_cart" class="btn btn-md" style="color:black;background-color:#FFFFCC;">
 				<span class="glyphicon glyphicon-shopping-cart"></span>

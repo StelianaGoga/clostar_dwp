@@ -1,10 +1,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <s:if test="#session.user == null">
-	<input type="hidden" id="isSignIn" value="false">
+	<input type="hidden" id="isSignedIn" value="false">
 </s:if>
 <s:else>
-	<input type="hidden" id="isSignIn" value="true">
+	<input type="hidden" id="isSignedIn" value="true">
 </s:else>
 
 <div class="row">
@@ -32,23 +32,69 @@
 		<s:if test="model.materials != null && !model.materials.isEmpty()"><h6><s:text name="clostar.prod.materials"/>: <s:property value='model.materials'/></h6></s:if>
 	
 		<br/><br/>
-		<form class="form-horizontal" action="add_to_cart?id=<s:property value='model.id'/>&name=<s:property value='model.name'/>&price=<s:property value='model.price'/>&currency=<s:property value='model.currency'/>"
-			 onsubmit="return validateItemToCart();" method="POST" enctype="multipart/form-data">
-			<div class="form-group errors" id="errors" style="display:none">
-				<s:text name="clostar.error.allnotnullable"/>
-			</div>
-			<div class="form-group">
-				<%-- <s:fielderror class="errors" fieldName="measure"/> --%>
-				<label id="radioLabel" for="measureRadio"><s:text name="clostar.prod.choose.measure"/></label>
-				<br/>
-				<s:radio id="measureRadio" name="choosenMeasure" list="measure" value="choosenMeasure"/>
-			</div>
-			<div class="form-group">
-				<%-- <s:fielderror class="errors" fieldName="quantity"/> --%>
-				<label id="numberLabel" for="quantityNumber"><s:text name="clostar.prod.choose.quantity"/></label>
-				<br/>
-				<input type="number" min="0" max="<s:property value='model.quantity'/>" id="quantityNumber" name="choosenQuantity" value="${quantity}">
-			</div>
+		<s:if test="#session.user == null || #session.user.id != model.user.id">
+			<form class="form-horizontal" action="add_to_cart?id=<s:property value='model.id'/>&name=<s:property value='model.name'/>&price=<s:property value='model.price'/>&currency=<s:property value='model.currency'/>"
+				 onsubmit="return validateItemToCart();" method="POST" enctype="multipart/form-data">
+				<div class="form-group errors" id="errors" style="display:none">
+					<s:text name="clostar.error.allnotnullable"/>
+				</div>
+				<div class="form-group">
+					<label id="radioLabel" for="measureRadio"><s:text name="clostar.prod.choose.measure"/></label>
+					<br/>
+					<s:iterator  value="measure" status="listStatus" var="m">
+						<%-- <s:radio id="measureRadio" name="choosenMeasure" list="measure" value="choosenMeasure"
+							onchange='changeMaxQuantity("<s:property value='%{mQuantity[#listStatus.index]}'/>")' /> --%>
+						<input type="radio" id="measureRadio" name="choosenMeasure" value='<s:property value="#m"/>'
+							onchange='changeMaxQuantity("<s:property value='%{mQuantity[#listStatus.index]}'/>")' />
+							<s:property value="#m"/>
+					</s:iterator>
+				</div>
+				<div class="form-group">
+					<label id="numberLabel" for="quantityNumber"><s:text name="clostar.prod.choose.quantity"/></label>
+					<br/>
+					<input type="number" min="0" max="<s:property value='model.quantity'/>" id="quantityNumber" name="choosenQuantity" value="${quantity}">
+				</div>
+				<div class="form-group">
+					<br/>
+					<label id="price" style="font-size: large;"><s:property value='model.price'/>
+						<s:if test="model.currency == 0"> EUR</s:if>
+						<s:elseif test="model.currency == 1"> GBP</s:elseif>
+						<s:elseif test="model.currency == 2"> RON</s:elseif>
+						<s:else> USD</s:else>
+					</label>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default"><s:text name="clostar.prod.add.cart"/></button>
+					<br/>
+					<s:if test="isFavorite == false">
+						<a href="add_to_favs?id=<s:property value='model.id'/>"><s:text name="clostar.prod.fav.add"/></a>
+					</s:if>
+					<s:else>
+						<a href="remove_from_favs?id=<s:property value='model.id'/>"><s:text name="clostar.prod.fav.remove"/></a>
+					</s:else>
+				</div>
+			</form>
+		</s:if>
+		<s:else>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th><s:text name="clostar.product.measure"/></th>
+						<th><s:text name="clostar.product.available"/></th>
+						<th><s:text name="clostar.product.sold"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<s:iterator value="allMeasures" status="listStatus" var="m">
+						<tr>
+							<td><s:property value="#m.measure"/></td>
+							<td><s:property value="#m.quantityAvail"/></td>
+							<td><s:property value="#m.quantitySold"/></td>
+						</tr>
+					</s:iterator>
+				</tbody>
+			</table>
+		
 			<div class="form-group">
 				<br/>
 				<label id="price" style="font-size: large;"><s:property value='model.price'/>
@@ -58,14 +104,11 @@
 					<s:else> USD</s:else>
 				</label>
 			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-default"><s:text name="clostar.prod.add.cart"/></button>
-				<br/>
-				<a href="add_to_favs?id=<s:property value='model.id'/>" contenteditable="false"><s:text name="clostar.prod.add.favs"/></a>
-			</div>
-			
-		</form>
+			<br/>
+			<%-- TODO <a href="remove_product?id=<s:property value='model.id'/>"><s:text name="clostar.product.remove"/></a> --%>
+		</s:else>
 	</div>
+	
 </div>
 
 <div class="modal fade" id="myModal" role="dialog">

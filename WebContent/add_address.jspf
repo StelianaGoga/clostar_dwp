@@ -1,0 +1,76 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<s:if test="#session.user == null">
+	<input type="hidden" id="isSignedIn" value="false">
+</s:if>
+<s:else>
+	<input type="hidden" id="isSignedIn" value="true">
+</s:else>
+
+
+<form class="form-horizontal" action="send_order" onsubmit="return validateAddress();" method="POST" enctype="multipart/form-data">
+
+	<div class="form-group" align="center">
+		<h3><s:text name="clostar.address.message.choose"/></h3>
+	</div>
+	
+	<div class="form-group" align="center">
+		<s:if test="addresses != null && addresses.size() > 0">
+			<div class="form-group errors"  align="center" id="errors0" style="display:none">
+				<s:text name="clostar.error.chooseOne"/>
+			</div>
+			<s:iterator value="addresses" status="listStatus" var="addr">
+				<input type="radio" name="chooseAddr" value='<s:property value="#addr.id"/>' onchange="disableFormFields()"/>
+					<s:property value="#addr.city"/>, <s:property value="#addr.address"/>, <s:property value="#addr.telephone"/>
+				<br/>
+			</s:iterator>
+			<br/>
+		</s:if>
+		<s:else>
+			<input type="radio" name="chooseAddr" disabled="disabled"/>
+			<s:text name="clostar.address.message.inexistent"/>
+			<script>
+				$(document).ready(function(){
+					$("#newAddr").attr('checked', true);
+					enableFormFields();
+				});
+			</script>
+		</s:else>
+	</div>
+	
+	<div class="form-group" align="center">
+		<input type="radio" id="newAddr" name="chooseAddr" value="new" onchange="enableFormFields()"/>
+		<s:text name="clostar.address.message.new"/>
+	</div>
+	
+	<div class="form-group errors"  align="center" id="errors" style="display:none">
+		<s:text name="clostar.error.allnotnullable"/>
+	</div>
+	
+	<div class="form-group">
+		<label id="cityLabel" for="city" class="col-sm-3 control-label"><s:text name="clostar.address.city"/></label>
+		<div class="col-sm-6" align="left">
+			<input type="text" disabled="disabled" class="form-control" id="address.city" maxlength="45" placeholder='<s:text name="clostar.address.city"/>' name="city" value="${city}">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="addressLabel" class="col-sm-3 control-label"><s:text name="clostar.address.address"/></label>
+		<div class="col-sm-6" align="left">
+			<textarea disabled="disabled" class="form-control" rows="3" id="address.addr" maxlength="120" name="addr" placeholder='<s:text name="clostar.address.address"/>'></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label id="phoneLabel" for="phone" class="col-sm-3 control-label"><s:text name="clostar.address.phone"/></label>
+		<div class="col-sm-6" align="left">
+			<input type="text" disabled="disabled" class="form-control" id="address.phone" maxlength="12" onkeypress="return allowedInputChars(event, '[^0-9+]')" 
+				placeholder='<s:text name="clostar.address.phone"/>' name="phone" value="${phone}">
+		</div>
+	</div>
+
+	<br/>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-6" align="center">
+			<button type="submit" class="btn btn-default"><s:text name="clostar.address.send"/></button>
+		</div>
+	</div>
+</form>

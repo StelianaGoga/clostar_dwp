@@ -8,6 +8,7 @@ public class Constants {
 	public final static String CART = "cart";
 	public final static String CART_SIZE = "cart_size";
 	public final static String CART_PRICE = "cart_price";
+	public final static String FAVS_SIZE = "favs_size";
 
 	public final static String[] productTypesNameEng = {
 		"Dresses", "Jackets", "Jeans", "Tops", "Skirts", "Shirts",

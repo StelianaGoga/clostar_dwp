@@ -1,5 +1,5 @@
 function validateItemToCart(){
-	if (document.getElementById("isSignIn").value == "false")
+	if (document.getElementById("isSignedIn").value == "false")
 		return true;
 	
 	var measure = document.getElementsByName("choosenMeasure");
@@ -17,6 +17,63 @@ function validateItemToCart(){
 	}
 	document.getElementById("errors").style.display = 'none';
 	return true;
+}
+
+function validateAddress() {
+	if (document.getElementById("isSignedIn").value == "false")
+		return true;
+
+	var radios = document.getElementsByName("chooseAddr");
+	for (var i = 0; i < radios.length; i++) {
+		if (radios[i].checked == true)
+			break;
+	}
+	if (i == radios.length) {
+		document.getElementById("errors0").style.display = 'block';
+		return false;
+	}
+	
+	if (document.getElementById("newAddr").checked == false) {
+		document.getElementById("errors").style.display = 'none';
+		document.getElementById("errors0").style.display = 'none';
+		return true;
+	}
+	var city = document.getElementById("address.city").value;
+	var addr = document.getElementById("address.addr").value;
+	var phone =document.getElementById("address.phone").value;
+
+	if (city == "" || addr == "" || phone == "" || phone.length < 10) {
+		document.getElementById("errors").style.display = 'block';
+		document.getElementById("errors0").style.display = 'none';
+		return false;
+	}
+	document.getElementById("errors").style.display = 'none';
+	document.getElementById("errors0").style.display = 'none';
+	return true;
+}
+
+function enableFormFields(){
+	var radio = document.getElementById("newAddr");
+	if (radio.checked == true) {
+		document.getElementById("address.city").disabled = false;
+		document.getElementById("address.addr").disabled = false;
+		document.getElementById("address.phone").disabled = false;
+	}
+}
+
+function changeMaxQuantity(max) {
+	var quantity = document.getElementById("quantityNumber");
+	quantity.max = max;
+	
+}
+
+function disableFormFields(){
+	var radio = document.getElementById("newAddr");
+	if (radio.checked == false) {
+		document.getElementById("address.city").disabled = true;
+		document.getElementById("address.addr").disabled = true;
+		document.getElementById("address.phone").disabled = true;
+	}
 }
 
 function make_option_elem(value, text) {

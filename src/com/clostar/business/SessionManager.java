@@ -2,6 +2,7 @@ package com.clostar.business;
 
 import java.util.Date;
 
+import com.clostar.db.dao.FavoritesDAO;
 import com.clostar.db.model.User;
 import com.clostar.utils.Constants;
 import com.opensymphony.xwork2.ActionContext;
@@ -41,6 +42,7 @@ public class SessionManager {
     	putKey(Constants.USER_ID, user.getId());
     	putKey(Constants.USER, user);
     	putKey(Constants.TIME, new Date().getTime());
+    	putKey(Constants.FAVS_SIZE, new FavoritesDAO().getCountByUser(user));
     }
 	
 	public void removeSession() {
@@ -48,6 +50,7 @@ public class SessionManager {
 		removeKey(Constants.USER);
 		removeKey(Constants.CART);
 		removeKey(Constants.CART_SIZE);
+		removeKey(Constants.FAVS_SIZE);
 	}
 
 	public ActionContext getContext() {

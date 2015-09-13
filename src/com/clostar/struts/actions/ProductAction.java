@@ -10,16 +10,16 @@ import java.util.List;
 import org.apache.struts2.ServletActionContext;
 
 import com.clostar.business.FileManager;
-import com.clostar.business.SessionManager;
+import com.clostar.db.dao.FavoritesDAO;
 import com.clostar.db.dao.MeasureDAO;
 import com.clostar.db.dao.ProdPicDAO;
 import com.clostar.db.dao.ProductDAO;
+import com.clostar.db.model.Favorites;
 import com.clostar.db.model.Measure;
 import com.clostar.db.model.ProdPic;
 import com.clostar.db.model.Product;
 import com.clostar.db.model.User;
 import com.clostar.utils.Constants;
-import com.clostar.wrappers.CartWrapper;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -44,6 +44,8 @@ public class ProductAction extends SuperAction
 	
 	private String choosenMeasure;
 	private Integer choosenQuantity;
+	private boolean isFavorite;
+	private List<Measure> allMeasures = new ArrayList<Measure>();
 	private boolean showModal;
 	
 	public String addProduct() throws Exception {
@@ -190,15 +192,26 @@ public class ProductAction extends SuperAction
 				e.printStackTrace();
 			}
 		}
-		
-		List<Measure> measures = new MeasureDAO().getByProduct(product);
+
+		List<Measure> measures = new MeasureDAO().getAvailByProduct(product);
 		for (Measure m : measures) {
 			measure.add(m.getMeasure());
+			mQuantity.add(m.getQuantityAvail());
 		}
-			
+		
+		setAllMeasures(new MeasureDAO().getByProduct(product));
+		
+		isFavorite = false;
+		List<Favorites> favs = new FavoritesDAO().getByUser(getSessionManager().getSessionUser());
+		for (Favorites fav : favs) {
+			Product favProd = new ProductDAO().getById(fav.getProdId());
+			if (favProd.getId() == product.getId())
+				isFavorite = true;
+		}
+		
 		return SUCCESS;
 	}
-
+/*
 	@SuppressWarnings("unchecked")
 	public String addToCart() throws Exception {
 		if(!getSessionManager().isSessionSignedIn()){
@@ -265,14 +278,36 @@ public class ProductAction extends SuperAction
 		}
 		return SUCCESS;
 	}
-	
+	*/
 	public String addToFavs() throws Exception {
 		if(!getSessionManager().isSessionSignedIn()){
 			addActionMessage(getText("clostar.error.sessionexpired"));
 			getSessionManager().putKey(Constants.TARGET, "show_product?id=" + product.getId());
 			return LOGIN;
 		}
+		User user = getSessionManager().getSessionUser();
+		product = new ProductDAO().getById(product.getId());
 		
+		Favorites fav = new Favorites(user, product.getId(), com.clostar.db.utils.Constants.ACTIVE_IND);
+		new FavoritesDAO().saveOrUpdate(fav);
+		
+		Integer fav_size = (Integer) getSessionManager().getValueKey(Constants.FAVS_SIZE); 
+		getSessionManager().putKey(Constants.FAVS_SIZE, fav_size + 1);
+		return SUCCESS;
+	}
+	
+	public String removeFromFavs() throws Exception {
+		if(!getSessionManager().isSessionSignedIn()){
+			addActionMessage(getText("clostar.error.sessionexpired"));
+			getSessionManager().putKey(Constants.TARGET, "show_product?id=" + product.getId());
+			return LOGIN;
+		}
+		User user = getSessionManager().getSessionUser();
+		product = new ProductDAO().getById(product.getId());
+		Favorites fav = new FavoritesDAO().getByUserAndProduct(user, product.getId());
+		new FavoritesDAO().delete(fav);
+		Integer fav_size = (Integer) getSessionManager().getValueKey(Constants.FAVS_SIZE); 
+		getSessionManager().putKey(Constants.FAVS_SIZE, fav_size - 1);
 		return SUCCESS;
 	}
 	
@@ -392,5 +427,21 @@ public class ProductAction extends SuperAction
 
 	public void setShowModal(boolean showModal) {
 		this.showModal = showModal;
+	}
+
+	public List<Measure> getAllMeasures() {
+		return allMeasures;
+	}
+
+	public void setAllMeasures(List<Measure> allMeasures) {
+		this.allMeasures = allMeasures;
+	}
+
+	public boolean getIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
 }

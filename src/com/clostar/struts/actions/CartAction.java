@@ -92,7 +92,7 @@ public class CartAction extends SuperAction
 			@SuppressWarnings("unchecked")
 			List<CartWrapper> cart = (List<CartWrapper>) sm.getValueKey(Constants.CART);
 			for (CartWrapper cw : cart) {
-				if (cw.getProductId() == product.getId()) {
+				if (cw.getProductId() == product.getId() && getChooseMeasure().equals(cw.getMeasure())) {
 					Integer size = (Integer) sm.getValueKey(Constants.CART_SIZE);
 					size -= cw.getQuantity();
 					sm.putKey(Constants.CART_SIZE, size);
@@ -172,11 +172,11 @@ public class CartAction extends SuperAction
 	}
 
 	public String getChoosenMeasure() {
-		return chooseMeasure;
+		return getChooseMeasure();
 	}
 
 	public void setChoosenMeasure(String chooseMeasure) {
-		this.chooseMeasure = chooseMeasure;
+		this.setChooseMeasure(chooseMeasure);
 	}
 
 	public Integer getChoosenQuantity() {
@@ -233,5 +233,13 @@ public class CartAction extends SuperAction
 
 	public void setChooseAddr(String chooseAddr) {
 		this.chooseAddr = chooseAddr;
+	}
+
+	public String getChooseMeasure() {
+		return chooseMeasure;
+	}
+
+	public void setChooseMeasure(String chooseMeasure) {
+		this.chooseMeasure = chooseMeasure;
 	}
 }

@@ -26,7 +26,7 @@
 							<s:else> USD</s:else>
 						</td>
 						<td><s:property value='#cw.euroPrice'/></td>
-						<td><a href="remove_from_cart?id=<s:property value='#cw.productId'/>">Remove</a></td>
+						<td><a href="remove_from_cart?id=<s:property value='#cw.productId'/>&chooseMeasure=<s:property value='#cw.measure'/>">Remove</a></td>
 					</tr>
 				</s:iterator>
 			</s:if>

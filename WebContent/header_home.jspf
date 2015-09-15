@@ -145,7 +145,7 @@
 			<li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_up"/></s:i18n></a></li>
 		</s:if>
 		<s:else>
-			<li><a href="home.jsp"><span class="glyphicon glyphicon-home"></span> <s:i18n name="global"><s:text name="clostar.menu.my_store"/></s:i18n></a></li>
+			<li><a href="view_my_products"><span class="glyphicon glyphicon-home"></span> <s:i18n name="global"><s:text name="clostar.menu.my_store"/></s:i18n></a></li>
 		</s:else>
         <!-- <li><a href="sign_up.jsp"><span class="glyphicon glyphicon-user"></span> <s:i18n name="global"><s:text name="clostar.menu.sign_up"/></s:i18n></a>
         </li> -->

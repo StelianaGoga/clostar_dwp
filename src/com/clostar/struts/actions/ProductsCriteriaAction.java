@@ -63,7 +63,14 @@ public class ProductsCriteriaAction extends SuperAction {
 		for (OrderData od : orderDatas) {
 			Product prod = new ProductDAO().getById(od.getProdId());
 			if (prod != null) {
-				sold.add(prod);
+				int pp = 0;
+				for (int i = 0; i < sold.size(); i++) {
+					if (sold.get(i).getId() == prod.getId()) {
+						pp = 1;
+						break;
+					}
+				}
+				if (pp == 0) sold.add(prod);
 			}
 		}
 		generateImages(sold);
